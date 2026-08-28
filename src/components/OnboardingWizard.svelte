@@ -1,6 +1,7 @@
 ﻿<script lang="ts">
   import { _ } from 'svelte-i18n';
   import { open } from '@tauri-apps/plugin-shell';
+  import DropZone from './DropZone.svelte';
 
   export let onComplete: (csvPath: string, outputFolder: string) => void = () => {};
 
@@ -10,8 +11,8 @@
   // Step 2 state
   let csvPath: string = '';
   let csvPreview: { title: string; artist: string; album: string }[] = [];
+  let trackCount: number = 0;
   let csvError: string = '';
-  let isDragOver = false;
 
   // Step 3 state
   let outputFolder: string = '';
@@ -30,6 +31,18 @@
   }
   function prevStep() {
     if (currentStep > 1) currentStep--;
+  }
+
+  function handleCsvLoaded(e: CustomEvent<{ path: string; preview: typeof csvPreview; trackCount: number }>) {
+    csvPath = e.detail.path;
+    csvPreview = e.detail.preview;
+    trackCount = e.detail.trackCount;
+    csvError = '';
+  }
+  
+  function handleCsvError(e: CustomEvent<{ message: string }>) {
+    csvError = e.detail.message;
+    csvPath = '';
   }
 </script>
 
@@ -108,7 +121,48 @@
     <!-- ===================== STEP 2 ===================== -->
     {#if currentStep === 2}
       <div class="step-panel animate-slide-up">
-        <slot name="step2" />
+        <h2 class="step-title">{$_('onboarding.step2.title')}</h2>
+        <p class="step-desc">{$_('onboarding.step2.description')}</p>
+
+        <DropZone 
+          bind:csvPath 
+          bind:preview={csvPreview} 
+          bind:error={csvError}
+          on:loaded={handleCsvLoaded}
+          on:error={handleCsvError}
+        />
+
+        {#if csvPreview.length > 0}
+          <div class="preview-panel animate-fade-in">
+            <div class="preview-header">
+              <span class="preview-title">{$_('onboarding.step2.preview_title')}</span>
+              <span class="badge badge-done">{$_('onboarding.step2.tracks_found', { values: { count: trackCount } })}</span>
+            </div>
+            <div class="preview-list">
+              {#each csvPreview as track}
+                <div class="preview-item">
+                  <span class="preview-track-icon">🎵</span>
+                  <div class="preview-track-info">
+                    <span class="preview-track-title">{track.title}</span>
+                    <span class="preview-track-sub">{track.artist} • {track.album}</span>
+                  </div>
+                </div>
+              {/each}
+              {#if trackCount > csvPreview.length}
+                <div class="preview-more">...and {trackCount - csvPreview.length} more</div>
+              {/if}
+            </div>
+          </div>
+        {/if}
+
+        <div class="step-footer">
+          <button class="btn btn-ghost" on:click={prevStep}>
+            ← Back
+          </button>
+          <button class="btn btn-primary" disabled={!csvPath || !!csvError} on:click={nextStep}>
+            Continue →
+          </button>
+        </div>
       </div>
     {/if}
 
@@ -278,4 +332,37 @@
     align-items: center;
     padding-top: var(--space-2);
   }
+
+  /* ---- Preview panel ---- */
+  .preview-panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-muted);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: var(--space-2);
+  }
+  .preview-title { font-size: var(--text-sm); font-weight: var(--font-semibold); color: var(--text-secondary); }
+  .preview-list { display: flex; flex-direction: column; gap: var(--space-2); }
+  .preview-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    background: var(--bg-glass);
+  }
+  .preview-track-icon { font-size: var(--text-base); }
+  .preview-track-info { display: flex; flex-direction: column; overflow: hidden; }
+  .preview-track-title { font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .preview-track-sub { font-size: var(--text-xs); color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .preview-more { text-align: center; font-size: var(--text-xs); color: var(--text-muted); padding-top: var(--space-2); font-style: italic; }
 </style>
