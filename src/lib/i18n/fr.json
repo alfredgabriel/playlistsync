@@ -1,0 +1,91 @@
+﻿{
+  "app": { "name": "PlaylistSync", "tagline": "Telechargez votre musique, a votre facon." },
+  "nav": { "home": "Accueil", "download": "Telecharger", "history": "Historique", "settings": "Parametres" },
+  "onboarding": {
+    "title": "Commencez en 3 etapes simples",
+    "step1": {
+      "title": "Exportez votre liste de lecture",
+      "description": "Exportez votre liste en fichier CSV depuis votre service musical.",
+      "spotify_btn": "Exporter depuis Spotify (Exportify)",
+      "other_btn": "Exporter depuis Apple Music / YouTube Music",
+      "tip": "Exportify fonctionne uniquement avec Spotify. Pour Apple Music ou YouTube Music, utilisez TuneMyMusic."
+    },
+    "step2": {
+      "title": "Selectionnez votre fichier CSV",
+      "description": "Glissez-deposez votre CSV ici, ou cliquez pour parcourir.",
+      "drop_label": "Deposez votre CSV ici",
+      "browse_btn": "Parcourir les fichiers",
+      "preview_title": "Apercu de la liste",
+      "tracks_found": "{count} pistes trouvees",
+      "error_invalid": "CSV invalide. Assurez-vous qu il a ete exporte depuis Exportify ou TuneMyMusic.",
+      "error_missing_cols": "Colonnes requises manquantes : Track Name, Artist Name."
+    },
+    "step3": {
+      "title": "Choisissez vos parametres",
+      "description": "Selectionnez ou sauvegarder votre musique et comment la telecharger.",
+      "output_label": "Dossier de sortie",
+      "output_btn": "Choisir un dossier",
+      "format_label": "Format audio",
+      "format_m4a": "M4A (meilleure qualite, recommande)",
+      "format_mp3": "MP3 (compatible avec les anciens appareils)",
+      "m3u_label": "Generer un fichier de liste .m3u",
+      "start_btn": "Demarrer le telechargement"
+    }
+  },
+  "download": {
+    "title": "Telechargement en cours",
+    "status_pending": "En attente",
+    "status_downloading": "Telechargement...",
+    "status_done": "Termine",
+    "status_error": "Introuvable",
+    "progress_label": "{done} sur {total} pistes",
+    "eta_label": "Temps restant : {eta}",
+    "cancel_btn": "Annuler",
+    "searching": "Recherche : {track}"
+  },
+  "results": {
+    "title": "Telechargement termine !",
+    "downloaded": "{count} pistes telechargees",
+    "failed": "{count} pistes introuvables",
+    "elapsed": "Termine en {time}",
+    "open_folder": "Ouvrir le dossier",
+    "new_download": "Nouveau telechargement",
+    "failed_list_title": "Pistes introuvables"
+  },
+  "history": {
+    "title": "Historique des telechargements",
+    "empty": "Aucun telechargement pour le moment.",
+    "open_folder": "Ouvrir le dossier",
+    "clear_btn": "Effacer l historique",
+    "tracks": "{count} pistes",
+    "format": "Format : {format}"
+  },
+  "settings": {
+    "title": "Parametres",
+    "language": "Langue",
+    "format": "Format audio par defaut",
+    "mp3_quality": "Qualite MP3",
+    "mp3_vbr0": "VBR 0 (meilleure qualite)",
+    "mp3_192": "192 kbps",
+    "mp3_128": "128 kbps",
+    "search_mode": "Mode de recherche",
+    "search_fast": "Rapide (1 resultat par chanson, ~3s)",
+    "search_deep": "Approfondi (3 resultats + scoring, ~20s, plus precis)",
+    "filters": "Filtres",
+    "exclude_instrumentals": "Exclure les versions instrumentales",
+    "duration_min": "Duree minimale (secondes)",
+    "duration_max": "Duree maximale (secondes)",
+    "tools": "Outils",
+    "update_ytdlp": "Mettre a jour yt-dlp",
+    "save_btn": "Enregistrer"
+  },
+  "errors": {
+    "ytdlp_missing": "yt-dlp introuvable. Reinstallez l application.",
+    "ffmpeg_missing": "ffmpeg introuvable. Reinstallez l application.",
+    "age_restricted": "Video avec restriction d age — ignoree.",
+    "no_results": "Aucun resultat trouve.",
+    "csv_read_error": "Impossible de lire le CSV. Verifiez l encodage du fichier.",
+    "folder_error": "Impossible d ouvrir le dossier de sortie."
+  },
+  "common": { "cancel": "Annuler", "save": "Enregistrer", "close": "Fermer", "yes": "Oui", "no": "Non", "loading": "Chargement..." }
+}

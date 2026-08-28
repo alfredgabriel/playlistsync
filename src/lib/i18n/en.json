@@ -1,0 +1,91 @@
+﻿{
+  "app": { "name": "PlaylistSync", "tagline": "Download your music, your way." },
+  "nav": { "home": "Home", "download": "Download", "history": "History", "settings": "Settings" },
+  "onboarding": {
+    "title": "Get started in 3 easy steps",
+    "step1": {
+      "title": "Export your playlist",
+      "description": "Export your playlist as a CSV file from your music service.",
+      "spotify_btn": "Export from Spotify (Exportify)",
+      "other_btn": "Export from Apple Music / YouTube Music",
+      "tip": "Exportify works only with Spotify. For Apple Music or YouTube Music, use TuneMyMusic."
+    },
+    "step2": {
+      "title": "Select your CSV file",
+      "description": "Drag and drop your CSV file here, or click to browse.",
+      "drop_label": "Drop your CSV here",
+      "browse_btn": "Browse files",
+      "preview_title": "Playlist preview",
+      "tracks_found": "{count} tracks found",
+      "error_invalid": "Invalid CSV — make sure it was exported from Exportify or TuneMyMusic.",
+      "error_missing_cols": "Missing required columns: Track Name, Artist Name."
+    },
+    "step3": {
+      "title": "Choose your settings",
+      "description": "Select where to save your music and how to download it.",
+      "output_label": "Output folder",
+      "output_btn": "Choose folder",
+      "format_label": "Audio format",
+      "format_m4a": "M4A (best quality, recommended)",
+      "format_mp3": "MP3 (compatible with older devices)",
+      "m3u_label": "Generate .m3u playlist file",
+      "start_btn": "Start download"
+    }
+  },
+  "download": {
+    "title": "Downloading",
+    "status_pending": "Pending",
+    "status_downloading": "Downloading...",
+    "status_done": "Done",
+    "status_error": "Not found",
+    "progress_label": "{done} of {total} tracks",
+    "eta_label": "Time remaining: {eta}",
+    "cancel_btn": "Cancel",
+    "searching": "Searching: {track}"
+  },
+  "results": {
+    "title": "Download complete!",
+    "downloaded": "{count} tracks downloaded",
+    "failed": "{count} tracks not found",
+    "elapsed": "Completed in {time}",
+    "open_folder": "Open folder",
+    "new_download": "New download",
+    "failed_list_title": "Tracks not found"
+  },
+  "history": {
+    "title": "Download History",
+    "empty": "No downloads yet.",
+    "open_folder": "Open folder",
+    "clear_btn": "Clear history",
+    "tracks": "{count} tracks",
+    "format": "Format: {format}"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "format": "Default audio format",
+    "mp3_quality": "MP3 quality",
+    "mp3_vbr0": "VBR 0 (best quality)",
+    "mp3_192": "192 kbps",
+    "mp3_128": "128 kbps",
+    "search_mode": "Search mode",
+    "search_fast": "Fast (1 result per song, ~3s each)",
+    "search_deep": "Deep (3 results + scoring, ~20s each, more accurate)",
+    "filters": "Filters",
+    "exclude_instrumentals": "Exclude instrumental versions",
+    "duration_min": "Min duration (seconds)",
+    "duration_max": "Max duration (seconds)",
+    "tools": "Tools",
+    "update_ytdlp": "Update yt-dlp",
+    "save_btn": "Save settings"
+  },
+  "errors": {
+    "ytdlp_missing": "yt-dlp not found. Please reinstall the app.",
+    "ffmpeg_missing": "ffmpeg not found. Please reinstall the app.",
+    "age_restricted": "Age-restricted video — skipped.",
+    "no_results": "No matching results found.",
+    "csv_read_error": "Could not read CSV file. Check the file encoding.",
+    "folder_error": "Could not open output folder."
+  },
+  "common": { "cancel": "Cancel", "save": "Save", "close": "Close", "yes": "Yes", "no": "No", "loading": "Loading..." }
+}
