@@ -1,13 +1,32 @@
 ﻿<script lang="ts">
   import { _ } from 'svelte-i18n';
+  import OnboardingWizard from '../components/OnboardingWizard.svelte';
+
+  let sessionStarted = false;
+  let csvPath = '';
+  let outputFolder = '';
+
+  function handleComplete(csv: string, folder: string) {
+    csvPath = csv;
+    outputFolder = folder;
+    sessionStarted = true;
+  }
 </script>
-<div class="view-placeholder animate-fade-in">
-  <span class="placeholder-icon">⬇️</span>
-  <h2>{$_('nav.download')}</h2>
-  <p class="text-secondary">Coming in next commit — Onboarding wizard and download engine.</p>
-</div>
+
+{#if !sessionStarted}
+  <OnboardingWizard onComplete={handleComplete} />
+{:else}
+  <div class="download-active animate-fade-in">
+    <p class="text-secondary">Download session started for: {csvPath}</p>
+  </div>
+{/if}
+
 <style>
-  .view-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:var(--space-4); text-align:center; padding:var(--space-8); }
-  .placeholder-icon { font-size:4rem; }
-  h2 { font-size:var(--text-2xl); font-weight:var(--font-bold); }
+  .download-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: var(--space-8);
+  }
 </style>
