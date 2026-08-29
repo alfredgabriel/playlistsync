@@ -1,18 +1,30 @@
-# PlaylistSync 💽
+<div align="center">
+  <img src="src/assets/logo.png" alt="PlaylistSync Logo" width="120" />
 
-Download your music, your way. **PlaylistSync** is a modern, blazing-fast desktop application built with Tauri, SvelteKit, and Rust that lets you import playlist CSV files (from Spotify, Apple Music, YouTube Music, etc.) and download all the tracks in high-quality M4A or MP3.
+  <h1>💽 PlaylistSync</h1>
+  <p><strong>Download your music, your way. A blazing-fast desktop application to import playlist CSVs and download tracks in high-quality audio.</strong></p>
 
-![PlaylistSync Logo](src/assets/logo.png)
+  <p>
+    <img src="https://img.shields.io/badge/Tauri-v2-FFC131?logo=tauri&logoColor=white" alt="Tauri" />
+    <img src="https://img.shields.io/badge/Svelte-v5-FF3E00?logo=svelte&logoColor=white" alt="Svelte" />
+    <img src="https://img.shields.io/badge/Rust-Backend-000000?logo=rust&logoColor=white" alt="Rust" />
+    <img src="https://img.shields.io/badge/yt--dlp-Bundled-ff0000" alt="yt-dlp" />
+  </p>
+</div>
 
-![PlaylistSync App](PlaylistSync.png)
+---
+
+## 📸 App Preview
+
+<img src="PlaylistSync.png" width="800" alt="PlaylistSync App Screenshot" />
 
 ## ✨ Features
 
-- **Any Playlist CSV:** Compatible with Exportify (Spotify) and TuneMyMusic exports.
-- **High Quality:** Downloads best-quality audio using `yt-dlp` and `ffmpeg` (both bundled internally).
-- **Auto Metadata:** Automatically embeds Title, Artist, Album, and Track Number into the downloaded files.
-- **Multilingual:** Full support for English, Spanish, French, and German.
-- **Plug and Play:** No need to install external dependencies like Python, FFmpeg or yt-dlp in your system path. Everything just works out of the box.
+- 📄 **Any Playlist CSV:** Compatible with [Exportify](https://exportify.net/) (Spotify) and TuneMyMusic exports.
+- 🎵 **High Quality:** Downloads best-quality audio using `yt-dlp` and `ffmpeg` (both bundled internally).
+- 🏷️ **Auto Metadata:** Automatically embeds Title, Artist, Album, and Track Number into the downloaded files.
+- 🌍 **Multilingual:** Full support for English, Spanish, French, and German.
+- ⚡ **Plug and Play:** No need to install external dependencies like Python, FFmpeg or yt-dlp in your system path. Everything just works out of the box.
 
 ---
 
@@ -22,7 +34,7 @@ If you have downloaded this source code and want to run it on your machine, foll
 
 ### Prerequisites
 Make sure you have installed on your system:
-- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Node.js](https://nodejs.org/) (v18 or higher)
 - [Rust](https://www.rust-lang.org/tools/install)
 
 ### 1. Install Dependencies
@@ -36,18 +48,18 @@ Launch the app in development mode with hot-reloading:
 ```bash
 npm run tauri dev
 ```
-*Note: The first time you run this command, Rust will compile the backend, which might take a few minutes. Subsequent runs will be much faster.*
+> *Note: The first time you run this command, Rust will compile the backend, which might take a few minutes. Subsequent runs will be much faster.*
 
 ---
 
 ## 📦 How to Build (Production)
 
-To create a standalone executable (`.exe`) that you can share with anyone:
+To create a standalone executable (`.exe` / `.dmg` / `.AppImage`) that you can share with anyone:
 
 ```bash
 npm run tauri build
 ```
-Once finished, you will find the installer and the `.exe` file in:
+Once finished, you will find the installer and the executable file in:
 `src-tauri/target/release/bundle/`
 
 ---
@@ -66,4 +78,4 @@ Once finished, you will find the installer and the `.exe` file in:
 
 - **Frontend:** SvelteKit + TypeScript + Vanilla CSS (Glassmorphism design).
 - **Backend:** Rust + Tauri v2.
-- **Tools:** `yt-dlp` and `ffmpeg` are bundled directly inside the app as native Tauri resources, avoiding any messy system PATH configurations for the end user.
+- **Tools:** `yt-dlp` and `ffmpeg` are bundled directly inside the app as native Tauri sidecars, avoiding any messy system PATH configurations for the end user.
