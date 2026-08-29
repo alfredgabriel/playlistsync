@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { _ } from 'svelte-i18n';
   import { open } from '@tauri-apps/plugin-shell';
   import { open as openDialog } from '@tauri-apps/plugin-dialog';
@@ -114,7 +114,7 @@
         </div>
         <div class="step-footer">
           <span />
-          <button class="btn btn-primary" id="step1-next-btn" on:click={nextStep}>I have my CSV → Next</button>
+          <button class="btn btn-primary" id="step1-next-btn" on:click={nextStep}>{$_('onboarding.step1.next_btn')}</button>
         </div>
       </div>
     {/if}
@@ -147,15 +147,15 @@
                 </div>
               {/each}
               {#if trackCount > csvPreview.length}
-                <div class="preview-more">...and {trackCount - csvPreview.length} more</div>
+                <div class="preview-more">{$_('onboarding.step2.and_more', { values: { count: trackCount - csvPreview.length } })}</div>
               {/if}
             </div>
           </div>
         {/if}
 
         <div class="step-footer">
-          <button class="btn btn-ghost" on:click={prevStep}>← Back</button>
-          <button class="btn btn-primary" disabled={!csvPath || !!csvError} on:click={nextStep}>Continue →</button>
+          <button class="btn btn-ghost" on:click={prevStep}>{$_('common.back')}</button>
+          <button class="btn btn-primary" disabled={!csvPath || !!csvError} on:click={nextStep}>{$_('common.continue')}</button>
         </div>
       </div>
     {/if}
@@ -171,7 +171,7 @@
           <div class="folder-picker" class:has-value={!!outputFolder}>
             <div class="folder-display">
               <span class="folder-icon">📂</span>
-              <span class="folder-path">{outputFolder || 'No folder selected'}</span>
+              <span class="folder-path">{outputFolder || $_('onboarding.step3.no_folder')}</span>
             </div>
             <button class="btn btn-secondary" id="output-btn" on:click={browseFolder}>
               {$_('onboarding.step3.output_btn')}
@@ -186,14 +186,14 @@
               <input type="radio" bind:group={format} value="m4a" name="format">
               <div class="format-info">
                 <span class="format-title">M4A</span>
-                <span class="format-desc">Best quality (Original AAC stream)</span>
+                <span class="format-desc">{$_('onboarding.step3.format_m4a_desc')}</span>
               </div>
             </label>
             <label class="format-card" class:active={format === 'mp3'}>
               <input type="radio" bind:group={format} value="mp3" name="format">
               <div class="format-info">
                 <span class="format-title">MP3</span>
-                <span class="format-desc">Best compatibility (Re-encoded VBR0)</span>
+                <span class="format-desc">{$_('onboarding.step3.format_mp3_desc')}</span>
               </div>
             </label>
           </div>
@@ -207,7 +207,7 @@
         </div>
 
         <div class="step-footer" style="margin-top:var(--space-4)">
-          <button class="btn btn-ghost" on:click={prevStep}>← Back</button>
+          <button class="btn btn-ghost" on:click={prevStep}>{$_('common.back')}</button>
           <button class="btn btn-primary btn-lg" disabled={!outputFolder} on:click={completeWizard}>
             <span class="btn-icon">🚀</span>
             {$_('onboarding.step3.start_btn')}

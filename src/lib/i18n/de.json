@@ -1,6 +1,31 @@
-﻿{
-  "app": { "name": "PlaylistSync", "tagline": "Lade deine Musik herunter, auf deine Weise." },
-  "nav": { "home": "Start", "download": "Herunterladen", "history": "Verlauf", "settings": "Einstellungen" },
+{
+  "app": {
+    "name": "PlaylistSync",
+    "tagline": "Lade deine Musik herunter, auf deine Weise."
+  },
+  "nav": {
+    "home": "Start",
+    "download": "Herunterladen",
+    "history": "Verlauf",
+    "settings": "Einstellungen"
+  },
+  "home": {
+    "hero_sub": "Importiere eine beliebige Playlist-CSV und lade alle Titel in M4A oder MP3 herunter.",
+    "get_started": "🎵 Loslegen",
+    "feature1_title": "Jede Playlist",
+    "feature1_desc": "Spotify, Apple Music, YouTube Music — jeder CSV-Export funktioniert.",
+    "feature2_title": "M4A & MP3",
+    "feature2_desc": "Beste Qualität M4A oder hochwertige VBR MP3.",
+    "feature3_title": "Auto-Metadaten",
+    "feature3_desc": "Titel, Künstler, Album und Titelnummer automatisch eingebettet.",
+    "feature4_title": "Mehrsprachig",
+    "feature4_desc": "Vollständige Unterstützung für Englisch, Spanisch, Französisch und Deutsch."
+  },
+  "banner": {
+    "ytdlp_missing": "yt-dlp fehlt.",
+    "ffmpeg_missing": "ffmpeg fehlt.",
+    "install_hint": "Bitte installiere sie und füge sie zu PATH hinzu, damit Downloads funktionieren."
+  },
   "onboarding": {
     "title": "In 3 einfachen Schritten starten",
     "step1": {
@@ -8,26 +33,33 @@
       "description": "Exportiere deine Playlist als CSV-Datei von deinem Musikdienst.",
       "spotify_btn": "Von Spotify exportieren (Exportify)",
       "other_btn": "Von Apple Music / YouTube Music exportieren",
-      "tip": "Exportify funktioniert nur mit Spotify. Fur Apple Music oder YouTube Music, verwende TuneMyMusic."
+      "tip": "Exportify funktioniert nur mit Spotify. Für Apple Music oder YouTube Music, verwende TuneMyMusic.",
+      "next_btn": "Ich habe meine CSV → Weiter"
     },
     "step2": {
-      "title": "CSV-Datei ausw\u00e4hlen",
+      "title": "CSV-Datei auswählen",
       "description": "Ziehe deine CSV-Datei hier hinein oder klicke zum Durchsuchen.",
       "drop_label": "CSV hier ablegen",
       "browse_btn": "Dateien durchsuchen",
+      "to_replace": "zum Ersetzen",
+      "aria_drop_area": "CSV-Datei-Ablegebereich",
       "preview_title": "Playlist-Vorschau",
       "tracks_found": "{count} Titel gefunden",
-      "error_invalid": "Ungiultige CSV. Stelle sicher, dass sie von Exportify oder TuneMyMusic exportiert wurde.",
+      "and_more": "...und {count} weitere",
+      "error_invalid": "Ungültige CSV. Stelle sicher, dass sie von Exportify oder TuneMyMusic exportiert wurde.",
       "error_missing_cols": "Erforderliche Spalten fehlen: Track Name, Artist Name."
     },
     "step3": {
-      "title": "Einstellungen w\u00e4hlen",
-      "description": "W\u00e4hle aus, wo deine Musik gespeichert werden soll und wie sie heruntergeladen wird.",
+      "title": "Einstellungen wählen",
+      "description": "Wähle aus, wo deine Musik gespeichert werden soll und wie sie heruntergeladen wird.",
       "output_label": "Ausgabeordner",
-      "output_btn": "Ordner ausw\u00e4hlen",
+      "output_btn": "Ordner auswählen",
+      "no_folder": "Kein Ordner ausgewählt",
       "format_label": "Audioformat",
-      "format_m4a": "M4A (beste Qualit\u00e4t, empfohlen)",
-      "format_mp3": "MP3 (kompatibel mit alteren Geraten)",
+      "format_m4a": "M4A (beste Qualität, empfohlen)",
+      "format_m4a_desc": "Beste Qualität (Original AAC-Stream)",
+      "format_mp3": "MP3 (kompatibel mit älteren Geräten)",
+      "format_mp3_desc": "Beste Kompatibilität (Re-kodiertes VBR0)",
       "m3u_label": ".m3u-Wiedergabelistendatei erstellen",
       "start_btn": "Download starten"
     }
@@ -36,56 +68,83 @@
     "title": "Herunterladen",
     "status_pending": "Ausstehend",
     "status_downloading": "Wird heruntergeladen...",
+    "status_searching": "Suche auf YouTube...",
     "status_done": "Fertig",
     "status_error": "Nicht gefunden",
     "progress_label": "{done} von {total} Titeln",
     "eta_label": "Verbleibende Zeit: {eta}",
     "cancel_btn": "Abbrechen",
-    "searching": "Suche: {track}"
+    "cancel_confirm": "Möchtest du den Download wirklich abbrechen?",
+    "searching": "Suche: {track}",
+    "stat_successful": "{count} erfolgreich",
+    "stat_failed": "{count} fehlgeschlagen"
   },
   "results": {
     "title": "Download abgeschlossen!",
     "downloaded": "{count} Titel heruntergeladen",
+    "downloaded_label": "Heruntergeladen",
     "failed": "{count} Titel nicht gefunden",
+    "failed_label": "Fehlgeschlagen",
+    "time_taken": "Dauer",
     "elapsed": "Abgeschlossen in {time}",
-    "open_folder": "Ordner offnen",
+    "open_folder": "Ordner öffnen",
     "new_download": "Neuer Download",
     "failed_list_title": "Nicht gefundene Titel"
   },
   "history": {
     "title": "Download-Verlauf",
     "empty": "Noch keine Downloads.",
-    "open_folder": "Ordner offnen",
-    "clear_btn": "Verlauf loschen",
+    "open_folder": "Ordner öffnen",
+    "clear_btn": "Verlauf löschen",
+    "clear_confirm": "Gesamten Verlauf löschen?",
     "tracks": "{count} Titel",
-    "format": "Format: {format}"
+    "format": "Format: {format}",
+    "format_lbl": "Format",
+    "time_lbl": "Zeit"
   },
   "settings": {
     "title": "Einstellungen",
     "language": "Sprache",
-    "format": "Standard-Audioformat",
-    "mp3_quality": "MP3-Qualitat",
-    "mp3_vbr0": "VBR 0 (beste Qualitat)",
-    "mp3_192": "192 kbps",
-    "mp3_128": "128 kbps",
-    "search_mode": "Suchmodus",
+    "audio_format_title": "Audioformat & Qualität",
+    "format_label": "Standard-Audioformat",
+    "mp3_quality_label": "MP3-Qualität",
+    "generate_m3u_label": ".m3u-Wiedergabelistendatei erstellen",
+    "search_filters_title": "Suche & Filter",
+    "search_mode_label": "Suchmodus",
+    "search_mode_hint": "Schnell lädt 1 Video pro Titel; Tiefenanalyse bewertet die besten 5 Ergebnisse.",
     "search_fast": "Schnell (1 Ergebnis pro Song, ~3s)",
+    "search_fast_short": "Schnell (1 Ergebnis)",
     "search_deep": "Tiefensuche (3 Ergebnisse + Bewertung, ~20s, genauer)",
+    "search_deep_short": "Tiefensuche (Top 5)",
     "filters": "Filter",
-    "exclude_instrumentals": "Instrumentalversionen ausschlie\u00dfen",
-    "duration_min": "Mindestdauer (Sekunden)",
-    "duration_max": "Maximaldauer (Sekunden)",
-    "tools": "Werkzeuge",
+    "exclude_instrumentals_label": "Instrumentalversionen ausschließen",
+    "duration_range_label": "Akzeptable Dauer (Sek)",
+    "seconds_unit": "Sek",
+    "tools_title": "System-Werkzeuge",
+    "not_found_path": "Nicht im PATH gefunden",
+    "checking_tools": "Werkzeuge werden geprüft...",
     "update_ytdlp": "yt-dlp aktualisieren",
     "save_btn": "Einstellungen speichern"
   },
   "errors": {
     "ytdlp_missing": "yt-dlp nicht gefunden. Bitte installiere die App neu.",
     "ffmpeg_missing": "ffmpeg nicht gefunden. Bitte installiere die App neu.",
-    "age_restricted": "Altersbeschr\u00e4nktes Video — ubersprungen.",
+    "age_restricted": "Altersbeschränktes Video — übersprungen.",
     "no_results": "Keine passenden Ergebnisse gefunden.",
-    "csv_read_error": "CSV-Datei konnte nicht gelesen werden. Codierung prufen.",
-    "folder_error": "Ausgabeordner konnte nicht geoffnet werden."
+    "csv_read_error": "CSV-Datei konnte nicht gelesen werden. Codierung prüfen.",
+    "folder_error": "Ausgabeordner konnte nicht geöffnet werden.",
+    "unknown": "Unbekannter Fehler"
   },
-  "common": { "cancel": "Abbrechen", "save": "Speichern", "close": "Schlie\u00dfen", "yes": "Ja", "no": "Nein", "loading": "Wird geladen..." }
+  "common": {
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "yes": "Ja",
+    "no": "Nein",
+    "loading": "Wird geladen...",
+    "or": "oder",
+    "back": "← Zurück",
+    "continue": "Weiter →",
+    "unknown": "Unbekannt"
+  }
 }

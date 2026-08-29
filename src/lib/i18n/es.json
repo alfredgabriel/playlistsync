@@ -1,33 +1,65 @@
 {
-  "app": { "name": "PlaylistSync", "tagline": "Descarga tu musica, a tu manera." },
-  "nav": { "home": "Inicio", "download": "Descargar", "history": "Historial", "settings": "Ajustes" },
+  "app": {
+    "name": "PlaylistSync",
+    "tagline": "Descarga tu música, a tu manera."
+  },
+  "nav": {
+    "home": "Inicio",
+    "download": "Descargar",
+    "history": "Historial",
+    "settings": "Ajustes"
+  },
+  "home": {
+    "hero_sub": "Importa cualquier CSV de playlist y descarga todas las canciones en M4A o MP3.",
+    "get_started": "🎵 Empezar",
+    "feature1_title": "Cualquier Playlist",
+    "feature1_desc": "Spotify, Apple Music, YouTube Music — cualquier exportación CSV funciona.",
+    "feature2_title": "M4A y MP3",
+    "feature2_desc": "Remux M4A de máxima calidad o MP3 VBR de alta calidad.",
+    "feature3_title": "Metadatos Automáticos",
+    "feature3_desc": "Título, artista, álbum y número de pista incrustados automáticamente.",
+    "feature4_title": "Multilingüe",
+    "feature4_desc": "Soporte completo para inglés, español, francés y alemán."
+  },
+  "banner": {
+    "ytdlp_missing": "Falta yt-dlp.",
+    "ffmpeg_missing": "Falta ffmpeg.",
+    "install_hint": "Por favor instálalos y añádelos al PATH para que funcionen las descargas."
+  },
   "onboarding": {
     "title": "Empieza en 3 sencillos pasos",
     "step1": {
-      "title": "Exporta tu lista de reproduccion",
-      "description": "Exporta tu lista como archivo CSV desde tu servicio de musica.",
+      "title": "Exporta tu lista de reproducción",
+      "description": "Exporta tu lista como archivo CSV desde tu servicio de música.",
       "spotify_btn": "Exportar desde Spotify (Exportify)",
       "other_btn": "Exportar desde Apple Music / YouTube Music",
-      "tip": "Exportify solo funciona con Spotify. Para Apple Music o YouTube Music, usa TuneMyMusic."
+      "tip": "Exportify solo funciona con Spotify. Para Apple Music o YouTube Music, usa TuneMyMusic.",
+      "next_btn": "Tengo mi CSV → Siguiente"
     },
     "step2": {
       "title": "Selecciona tu archivo CSV",
-      "description": "Arrastra y suelta tu CSV aqui, o haz clic para buscar.",
-      "drop_label": "Suelta tu CSV aqui",
+      "description": "Arrastra y suelta tu CSV aquí, o haz clic para buscar.",
+      "drop_label": "Suelta tu CSV aquí",
       "browse_btn": "Examinar archivos",
+      "to_replace": "para reemplazar",
+      "aria_drop_area": "Zona para soltar archivo CSV",
       "preview_title": "Vista previa de la lista",
       "tracks_found": "{count} canciones encontradas",
-      "error_invalid": "CSV no valido. Asegurate de que fue exportado desde Exportify o TuneMyMusic.",
+      "and_more": "...y {count} más",
+      "error_invalid": "CSV no válido. Asegúrate de que fue exportado desde Exportify o TuneMyMusic.",
       "error_missing_cols": "Faltan columnas requeridas: Track Name, Artist Name."
     },
     "step3": {
-      "title": "Elige tu configuracion",
-      "description": "Selecciona donde guardar tu musica y como descargarla.",
+      "title": "Elige tu configuración",
+      "description": "Selecciona dónde guardar tu música y cómo descargarla.",
       "output_label": "Carpeta de destino",
       "output_btn": "Elegir carpeta",
+      "no_folder": "Ninguna carpeta seleccionada",
       "format_label": "Formato de audio",
       "format_m4a": "M4A (mejor calidad, recomendado)",
-      "format_mp3": "MP3 (compatible con dispositivos mas antiguos)",
+      "format_m4a_desc": "Mejor calidad (Stream AAC original)",
+      "format_mp3": "MP3 (compatible con dispositivos más antiguos)",
+      "format_mp3_desc": "Mejor compatibilidad (Re-codificado VBR0)",
       "m3u_label": "Generar archivo de lista .m3u",
       "start_btn": "Iniciar descarga"
     }
@@ -36,18 +68,24 @@
     "title": "Descargando Playlist",
     "status_pending": "Esperando...",
     "status_downloading": "Descargando...",
+    "status_searching": "Buscando en YouTube...",
     "status_done": "Finalizado",
     "status_error": "Error",
     "progress_label": "{done} de {total} pistas procesadas",
     "eta_label": "Tiempo est.: {eta}",
     "cancel_btn": "Cancelar Descarga",
-    "status_searching": "Buscando en YouTube...",
-    "searching": "Buscando: {track}"
+    "cancel_confirm": "¿Estás seguro de que quieres cancelar la descarga?",
+    "searching": "Buscando: {track}",
+    "stat_successful": "{count} exitosas",
+    "stat_failed": "{count} fallidas"
   },
   "results": {
-    "title": "Descarga completada!",
+    "title": "¡Descarga completada!",
     "downloaded": "{count} canciones descargadas",
+    "downloaded_label": "Descargadas",
     "failed": "{count} canciones no encontradas",
+    "failed_label": "Fallidas",
+    "time_taken": "Tiempo empleado",
     "elapsed": "Completado en {time}",
     "open_folder": "Abrir carpeta",
     "new_download": "Nueva descarga",
@@ -55,38 +93,58 @@
   },
   "history": {
     "title": "Historial de descargas",
-    "empty": "Aun no hay descargas.",
+    "empty": "Aún no hay descargas.",
     "open_folder": "Abrir carpeta",
     "clear_btn": "Borrar historial",
+    "clear_confirm": "¿Borrar todo el historial?",
     "tracks": "{count} canciones",
-    "format": "Formato: {format}"
+    "format": "Formato: {format}",
+    "format_lbl": "Formato",
+    "time_lbl": "Tiempo"
   },
   "settings": {
     "title": "Ajustes",
     "language": "Idioma",
-    "format": "Formato de audio por defecto",
-    "mp3_quality": "Calidad MP3",
-    "mp3_vbr0": "VBR 0 (mejor calidad)",
-    "mp3_192": "192 kbps",
-    "mp3_128": "128 kbps",
-    "search_mode": "Modo de busqueda",
-    "search_fast": "Rapido (1 resultado por cancion, ~3s)",
-    "search_deep": "Profundo (3 resultados + puntuacion, ~20s, mas preciso)",
+    "audio_format_title": "Formato de audio y calidad",
+    "format_label": "Formato de audio por defecto",
+    "mp3_quality_label": "Calidad MP3",
+    "generate_m3u_label": "Generar archivo de lista .m3u",
+    "search_filters_title": "Búsqueda y filtros",
+    "search_mode_label": "Modo de búsqueda",
+    "search_mode_hint": "Rápido descarga 1 vídeo por canción; Profundo evalúa los 5 mejores resultados.",
+    "search_fast": "Rápido (1 resultado por canción, ~3s)",
+    "search_fast_short": "Rápido (1 resultado)",
+    "search_deep": "Profundo (3 resultados + puntuación, ~20s, más preciso)",
+    "search_deep_short": "Profundo (Top 5)",
     "filters": "Filtros",
-    "filters": "Filtros",
-    "exclude_instrumentals_label": "Excluir Instrumentales/Directos",
-    "duration_range_label": "Duración Aceptable (seg)",
-    "tools_title": "Herramientas del Sistema",
+    "exclude_instrumentals_label": "Excluir versiones instrumentales",
+    "duration_range_label": "Duración aceptable (seg)",
+    "seconds_unit": "seg",
+    "tools_title": "Herramientas del sistema",
+    "not_found_path": "No encontrado en PATH",
+    "checking_tools": "Comprobando herramientas...",
     "update_ytdlp": "Actualizar yt-dlp",
     "save_btn": "Guardar ajustes"
   },
   "errors": {
-    "ytdlp_missing": "yt-dlp no encontrado. Reinstala la aplicacion.",
-    "ffmpeg_missing": "ffmpeg no encontrado. Reinstala la aplicacion.",
-    "age_restricted": "Video con restriccion de edad — omitido.",
+    "ytdlp_missing": "yt-dlp no encontrado. Reinstala la aplicación.",
+    "ffmpeg_missing": "ffmpeg no encontrado. Reinstala la aplicación.",
+    "age_restricted": "Vídeo con restricción de edad — omitido.",
     "no_results": "No se encontraron resultados.",
-    "csv_read_error": "No se pudo leer el CSV. Comprueba la codificacion del archivo.",
-    "folder_error": "No se pudo abrir la carpeta de destino."
+    "csv_read_error": "No se pudo leer el CSV. Comprueba la codificación del archivo.",
+    "folder_error": "No se pudo abrir la carpeta de destino.",
+    "unknown": "Error desconocido"
   },
-  "common": { "cancel": "Cancelar", "save": "Guardar", "close": "Cerrar", "yes": "Si", "no": "No", "loading": "Cargando..." }
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No",
+    "loading": "Cargando...",
+    "or": "o",
+    "back": "← Atrás",
+    "continue": "Continuar →",
+    "unknown": "Desconocido"
+  }
 }

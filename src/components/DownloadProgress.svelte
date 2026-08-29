@@ -30,7 +30,7 @@
   }
 
   async function handleCancel() {
-    if (confirm('Are you sure you want to cancel the download?')) {
+    if (confirm($_('download.cancel_confirm'))) {
       try {
         await invoke('cancel_download');
         downloadStore.completeSession();
@@ -70,9 +70,9 @@
       </div>
 
       <div class="stats">
-        <span class="stat-item">✅ {done} successful</span>
+        <span class="stat-item">✅ {$_('download.stat_successful', { values: { count: done } })}</span>
         {#if failed > 0}
-          <span class="stat-item error">❌ {failed} failed</span>
+          <span class="stat-item error">❌ {$_('download.stat_failed', { values: { count: failed } })}</span>
         {/if}
         {#if !isFinished}
           <span class="stat-item eta">⏱ {$_('download.eta_label', { values: { eta: etaStr } })}</span>

@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { open } from '@tauri-apps/plugin-dialog';
   import { readTextFile } from '@tauri-apps/plugin-fs';
@@ -114,7 +114,7 @@
   on:drop={onDrop}
   role="button"
   tabindex="0"
-  aria-label="Drop CSV file area"
+  aria-label={$_('onboarding.step2.aria_drop_area')}
   id="csv-drop-zone"
   on:click={browseFile}
   on:keydown={(e) => e.key === 'Enter' && browseFile()}
@@ -128,7 +128,7 @@
     <div class="dz-inner">
       <span class="dz-icon success">✅</span>
       <p class="dz-label success-text">{csvPath.split(/[\\/]/).pop()}</p>
-      <p class="dz-sub">{$_('onboarding.step2.browse_btn')} to replace</p>
+      <p class="dz-sub">{$_('onboarding.step2.browse_btn')} {$_('onboarding.step2.to_replace')}</p>
     </div>
   {:else}
     <div class="dz-inner">
@@ -136,7 +136,7 @@
         <span class="dz-icon">📂</span>
       </div>
       <p class="dz-label">{$_('onboarding.step2.drop_label')}</p>
-      <p class="dz-sub">or <span class="dz-link">{$_('onboarding.step2.browse_btn')}</span></p>
+      <p class="dz-sub">{$_('common.or')} <span class="dz-link">{$_('onboarding.step2.browse_btn')}</span></p>
     </div>
   {/if}
 

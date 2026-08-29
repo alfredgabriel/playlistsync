@@ -4,6 +4,8 @@ Download your music, your way. **PlaylistSync** is a modern, blazing-fast deskto
 
 ![PlaylistSync Logo](src/assets/logo.png)
 
+![PlaylistSync App](PlaylistSync.png)
+
 ## ✨ Features
 
 - **Any Playlist CSV:** Compatible with Exportify (Spotify) and TuneMyMusic exports.

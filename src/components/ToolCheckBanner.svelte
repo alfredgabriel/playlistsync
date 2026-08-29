@@ -19,9 +19,9 @@
   <div class="tool-banner">
     <div class="banner-content">
       <strong>⚠️ {$_('settings.tools_title')}:</strong> 
-      {#if !ytdlpAvailable} <span>yt-dlp missing.</span> {/if}
-      {#if !ffmpegAvailable} <span>ffmpeg missing.</span> {/if}
-      <span class="muted">Please install them and add to PATH for downloads to work.</span>
+      {#if !ytdlpAvailable} <span>{$_('banner.ytdlp_missing')}</span> {/if}
+      {#if !ffmpegAvailable} <span>{$_('banner.ffmpeg_missing')}</span> {/if}
+      <span class="muted">{$_('banner.install_hint')}</span>
     </div>
   </div>
 {/if}

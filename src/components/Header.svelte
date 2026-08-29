@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { _ } from 'svelte-i18n';
   import { setLocale, SUPPORTED_LOCALES } from '$lib/i18n/index';
   import { locale } from 'svelte-i18n';
@@ -25,7 +25,7 @@
         class="form-input form-select locale-select"
         value={$locale?.split('-')[0] ?? 'en'}
         on:change={handleLocaleChange}
-        aria-label="Select language"
+        aria-label={$_('settings.language')}
         id="language-selector"
       >
         {#each SUPPORTED_LOCALES as loc}

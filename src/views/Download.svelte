@@ -8,7 +8,7 @@
   import { invoke } from '@tauri-apps/api/core';
 
   let viewState: 'wizard' | 'active' | 'results' = 'wizard';
-  let csvData: { title: string; artist: string; album: string }[] = [];
+  let csvData: { index: number; title: string; artist: string; album: string }[] = [];
   let playlistNameStr = '';
 
   async function handleComplete(csvPath: string, folder: string) {
@@ -40,9 +40,9 @@
         const row = Object.fromEntries(headers.map((h, i) => [h, vals[i] ?? '']));
         return {
           index,
-          title: row['Track Name'] || row['Track name'] || 'Unknown',
-          artist: row['Artist Name(s)'] || row['Artist name'] || 'Unknown',
-          album: row['Album Name'] || row['Album'] || 'Unknown',
+          title: row['Track Name'] || row['Track name'] || $_('common.unknown'),
+          artist: row['Artist Name(s)'] || row['Artist name'] || $_('common.unknown'),
+          album: row['Album Name'] || row['Album'] || '—',
         };
       });
     }

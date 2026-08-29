@@ -36,17 +36,17 @@
       <div class="stats-grid">
         <div class="stat-card success">
           <span class="stat-val">{session.doneTracks}</span>
-          <span class="stat-lbl">{$_('results.downloaded', { values: { count: '' } }).replace('{count}', '')}</span>
+          <span class="stat-lbl">{$_('results.downloaded_label')}</span>
         </div>
         {#if session.failedTracks > 0}
           <div class="stat-card error">
             <span class="stat-val">{session.failedTracks}</span>
-            <span class="stat-lbl">{$_('results.failed', { values: { count: '' } }).replace('{count}', '')}</span>
+            <span class="stat-lbl">{$_('results.failed_label')}</span>
           </div>
         {/if}
         <div class="stat-card neutral">
           <span class="stat-val">{formatDuration((session.completedAt || Date.now()) - session.startedAt)}</span>
-          <span class="stat-lbl">Time taken</span>
+          <span class="stat-lbl">{$_('results.time_taken')}</span>
         </div>
       </div>
 
@@ -57,7 +57,7 @@
             {#each failedTracks as track}
               <div class="failed-item">
                 <span class="failed-track">{track.title} - {track.artist}</span>
-                <span class="failed-reason">{track.error || 'Unknown error'}</span>
+                <span class="failed-reason">{track.error || $_('errors.unknown')}</span>
               </div>
             {/each}
           </div>

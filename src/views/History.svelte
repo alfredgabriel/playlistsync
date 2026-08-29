@@ -17,7 +17,7 @@
   }
 
   function handleClear() {
-    if (confirm($_('history.clear_confirm') || 'Clear all history?')) {
+    if (confirm($_('history.clear_confirm'))) {
       historyStore.clear();
     }
   }
@@ -54,19 +54,19 @@
           <div class="card-stats">
             <div class="stat">
               <span class="val success">{session.doneTracks}</span>
-              <span class="lbl">{$_('results.downloaded', { values: { count: '' } }).replace('{count}', '')}</span>
+              <span class="lbl">{$_('results.downloaded_label')}</span>
             </div>
             <div class="stat">
               <span class="val error">{session.failedTracks}</span>
-              <span class="lbl">{$_('results.failed', { values: { count: '' } }).replace('{count}', '')}</span>
+              <span class="lbl">{$_('results.failed_label')}</span>
             </div>
             <div class="stat">
               <span class="val format">{session.format.toUpperCase()}</span>
-              <span class="lbl">Format</span>
+              <span class="lbl">{$_('history.format_lbl')}</span>
             </div>
             <div class="stat">
               <span class="val time">{session.elapsedSecs}s</span>
-              <span class="lbl">Time</span>
+              <span class="lbl">{$_('history.time_lbl')}</span>
             </div>
           </div>
 

@@ -82,10 +82,10 @@
         </div>
         <div class="btn-group">
           <button class="btn btn-sm" class:btn-primary={$settings.searchMode === 'fast'} class:btn-secondary={$settings.searchMode !== 'fast'} on:click={() => handleUpdate('searchMode', 'fast')}>
-            Fast (1 result)
+            {$_('settings.search_fast_short')}
           </button>
           <button class="btn btn-sm" class:btn-primary={$settings.searchMode === 'deep'} class:btn-secondary={$settings.searchMode !== 'deep'} on:click={() => handleUpdate('searchMode', 'deep')}>
-            Deep (Score top 5)
+            {$_('settings.search_deep_short')}
           </button>
         </div>
       </div>
@@ -108,7 +108,7 @@
           <input type="number" class="input-field short" value={$settings.durationMin} on:change={(e) => handleUpdate('durationMin', parseInt(e.currentTarget.value))} min="0" />
           <span>-</span>
           <input type="number" class="input-field short" value={$settings.durationMax} on:change={(e) => handleUpdate('durationMax', parseInt(e.currentTarget.value))} min="0" />
-          <span>sec</span>
+          <span>{$_('settings.seconds_unit')}</span>
         </div>
       </div>
     </section>
@@ -122,7 +122,7 @@
           <span class="tool-icon">{toolStatus.ytdlpAvailable ? '✅' : '❌'}</span>
           <div class="tool-info">
             <strong>yt-dlp</strong>
-            <span class="tool-path" title={toolStatus.ytdlpPath || ''}>{toolStatus.ytdlpPath || 'Not found in PATH'}</span>
+            <span class="tool-path" title={toolStatus.ytdlpPath || ''}>{toolStatus.ytdlpPath || $_('settings.not_found_path')}</span>
             {#if toolStatus.ytdlpAvailable}
               <span class="tool-version">v{ytdlpVersion}</span>
             {/if}
@@ -133,11 +133,11 @@
           <span class="tool-icon">{toolStatus.ffmpegAvailable ? '✅' : '❌'}</span>
           <div class="tool-info">
             <strong>ffmpeg</strong>
-            <span class="tool-path" title={toolStatus.ffmpegPath || ''}>{toolStatus.ffmpegPath || 'Not found in PATH'}</span>
+            <span class="tool-path" title={toolStatus.ffmpegPath || ''}>{toolStatus.ffmpegPath || $_('settings.not_found_path')}</span>
           </div>
         </div>
       {:else}
-        <div class="loading-tools">Checking tools...</div>
+        <div class="loading-tools">{$_('settings.checking_tools')}</div>
       {/if}
     </section>
   </div>

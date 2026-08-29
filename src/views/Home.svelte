@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { _ } from 'svelte-i18n';
   export let onNavigate: (view: string) => void = () => {};
 </script>
@@ -7,23 +7,23 @@
   <div class="home-hero">
     <div class="hero-glow" />
     <h2 class="hero-title">{$_('app.tagline')}</h2>
-    <p class="hero-sub">Import any playlist CSV and download all tracks in M4A or MP3.</p>
+    <p class="hero-sub">{$_('home.hero_sub')}</p>
     <button class="btn btn-primary btn-lg" id="home-start-btn" on:click={() => onNavigate('download')}>
-      🎵 Get Started
+      {$_('home.get_started')}
     </button>
   </div>
 
   <div class="feature-grid">
     {#each [
-      { icon: '📂', title: 'Any Playlist', desc: 'Spotify, Apple Music, YouTube Music — any CSV export works.' },
-      { icon: '🎵', title: 'M4A & MP3', desc: 'Best quality M4A remux or high-quality VBR MP3.' },
-      { icon: '🏷️', title: 'Auto Metadata', desc: 'Title, artist, album and track number embedded automatically.' },
-      { icon: '🌍', title: 'Multilingual', desc: 'Full support for English, Spanish, French and German.' },
+      { icon: '📂', titleKey: 'home.feature1_title', descKey: 'home.feature1_desc' },
+      { icon: '🎵', titleKey: 'home.feature2_title', descKey: 'home.feature2_desc' },
+      { icon: '🏷️', titleKey: 'home.feature3_title', descKey: 'home.feature3_desc' },
+      { icon: '🌍', titleKey: 'home.feature4_title', descKey: 'home.feature4_desc' },
     ] as feature}
       <div class="feature-card card">
         <span class="feature-icon">{feature.icon}</span>
-        <h3 class="feature-title">{feature.title}</h3>
-        <p class="feature-desc">{feature.desc}</p>
+        <h3 class="feature-title">{$_(feature.titleKey)}</h3>
+        <p class="feature-desc">{$_(feature.descKey)}</p>
       </div>
     {/each}
   </div>
