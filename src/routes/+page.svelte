@@ -1,6 +1,6 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { onMount } from 'svelte';
-  import { _ } from 'svelte-i18n';
+  import { _, isLoading } from 'svelte-i18n';
   import '../styles/global.css';
   import '../lib/i18n/index';
 
@@ -24,7 +24,7 @@
   onMount(() => { ready = true; });
 </script>
 
-{#if ready}
+{#if ready && !$isLoading}
   <div class="app-root animate-fade-in">
     <Sidebar bind:activeView />
 
