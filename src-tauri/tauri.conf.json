@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "playlistsync",
+  "productName": "PlaylistSync",
   "version": "0.1.0",
   "identifier": "com.playlistsync.app",
   "build": {
@@ -12,9 +12,13 @@
   "app": {
     "windows": [
       {
-        "title": "playlistsync",
-        "width": 800,
-        "height": 600
+        "title": "PlaylistSync",
+        "width": 980,
+        "height": 680,
+        "minWidth": 860,
+        "minHeight": 580,
+        "resizable": true,
+        "center": true
       }
     ],
     "security": {

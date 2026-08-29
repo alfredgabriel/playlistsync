@@ -1,7 +1,7 @@
-﻿#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+mod commands;
+mod models;
+
+use commands::{config, tools, search, download, history};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -10,7 +10,24 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .manage(download::DownloadState::default())
+        .invoke_handler(tauri::generate_handler![
+            // tools
+            tools::check_tools,
+            tools::get_ytdlp_version,
+            // config
+            config::load_app_config,
+            config::save_app_config,
+            // search
+            search::search_track,
+            // download
+            download::start_download_session,
+            download::cancel_download,
+            // history
+            history::load_history,
+            history::save_history,
+            history::clear_history,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
