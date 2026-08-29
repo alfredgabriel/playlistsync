@@ -1,4 +1,5 @@
-﻿import { writable } from 'svelte/store';
+import { writable } from 'svelte/store';
+import { listen } from '@tauri-apps/api/event';
 
 export type TrackStatus = 'pending' | 'searching' | 'downloading' | 'done' | 'error';
 
@@ -26,6 +27,19 @@ export interface DownloadSession {
 
 function createDownloadStore() {
   const { subscribe, set, update } = writable<DownloadSession | null>(null);
+
+  // Listen to backend events
+  listen('download:progress', (event: any) => {
+    const payload = event.payload as Partial<TrackState> & { index: number };
+    update(session => {
+      if (!session) return session;
+      const tracks = [...session.tracks];
+      tracks[payload.index] = { ...tracks[payload.index], ...payload };
+      const doneTracks = tracks.filter(t => t.status === 'done').length;
+      const failedTracks = tracks.filter(t => t.status === 'error').length;
+      return { ...session, tracks, doneTracks, failedTracks };
+    });
+  });
 
   return {
     subscribe,
