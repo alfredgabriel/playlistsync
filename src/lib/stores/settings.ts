@@ -1,53 +1,56 @@
-﻿import { writable } from 'svelte/store';
-import { browser } from '$app/environment';
-
-export type AudioFormat = 'm4a' | 'mp3';
-export type SearchMode = 'fast' | 'deep';
-export type Mp3Quality = 'vbr0' | '192' | '128';
+import { writable, get } from 'svelte/store';
+import { invoke } from '@tauri-apps/api/core';
 
 export interface AppSettings {
-  format: AudioFormat;
-  searchMode: SearchMode;
-  mp3Quality: Mp3Quality;
+  format: 'm4a' | 'mp3';
+  mp3Quality: '128' | '192' | 'vbr0';
+  searchMode: 'fast' | 'deep';
   excludeInstrumentals: boolean;
   durationMin: number;
   durationMax: number;
   generateM3u: boolean;
+  variants: string[];
 }
 
-const DEFAULT_SETTINGS: AppSettings = {
+const defaultSettings: AppSettings = {
   format: 'm4a',
-  searchMode: 'deep',
   mp3Quality: 'vbr0',
+  searchMode: 'deep',
   excludeInstrumentals: false,
   durationMin: 30,
   durationMax: 600,
   generateM3u: true,
+  variants: [],
 };
 
-function loadSettings(): AppSettings {
-  if (!browser) return DEFAULT_SETTINGS;
-  try {
-    const raw = localStorage.getItem('playlistsync_settings');
-    if (raw) return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
-  } catch {}
-  return DEFAULT_SETTINGS;
-}
-
 function createSettingsStore() {
-  const { subscribe, set, update } = writable<AppSettings>(loadSettings());
+  const { subscribe, set, update } = writable<AppSettings>(defaultSettings);
+  let initialized = false;
 
   return {
     subscribe,
-    set: (value: AppSettings) => {
-      if (browser) localStorage.setItem('playlistsync_settings', JSON.stringify(value));
-      set(value);
+    init: async () => {
+      if (initialized) return;
+      try {
+        const backendSettings = await invoke<AppSettings>('load_app_config');
+        set(backendSettings);
+      } catch (e) {
+        console.error("Failed to load settings from backend", e);
+      }
+      initialized = true;
     },
-    update,
-    reset: () => {
-      if (browser) localStorage.removeItem('playlistsync_settings');
-      set(DEFAULT_SETTINGS);
-    },
+    updateSetting: async <K extends keyof AppSettings>(key: K, value: AppSettings[K]) => {
+      let newState: AppSettings = get({ subscribe });
+      update(s => {
+        newState = { ...s, [key]: value };
+        return newState;
+      });
+      try {
+        await invoke('save_app_config', { config: newState });
+      } catch (e) {
+        console.error("Failed to save settings", e);
+      }
+    }
   };
 }
 

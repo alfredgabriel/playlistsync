@@ -1,4 +1,4 @@
-﻿{
+{
   "app": { "name": "PlaylistSync", "tagline": "Download your music, your way." },
   "nav": { "home": "Home", "download": "Download", "history": "History", "settings": "Settings" },
   "onboarding": {
@@ -33,14 +33,15 @@
     }
   },
   "download": {
-    "title": "Downloading",
-    "status_pending": "Pending",
+    "title": "Downloading Playlist",
+    "status_pending": "Waiting...",
     "status_downloading": "Downloading...",
-    "status_done": "Done",
-    "status_error": "Not found",
-    "progress_label": "{done} of {total} tracks",
-    "eta_label": "Time remaining: {eta}",
-    "cancel_btn": "Cancel",
+    "status_searching": "Searching YouTube...",
+    "status_done": "Finished",
+    "status_error": "Error",
+    "progress_label": "{done} of {total} tracks processed",
+    "eta_label": "ETA: {eta}",
+    "cancel_btn": "Cancel Download",
     "searching": "Searching: {track}"
   },
   "results": {
