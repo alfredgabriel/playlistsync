@@ -1,32 +1,81 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { _ } from 'svelte-i18n';
   import OnboardingWizard from '../components/OnboardingWizard.svelte';
+  import DownloadProgress from '../components/DownloadProgress.svelte';
+  import ResultsSummary from '../components/ResultsSummary.svelte';
+  import { downloadStore } from '../lib/stores/download';
+  import { settings } from '../lib/stores/settings';
+  import { invoke } from '@tauri-apps/api/core';
 
-  let sessionStarted = false;
-  let csvPath = '';
-  let outputFolder = '';
+  let viewState: 'wizard' | 'active' | 'results' = 'wizard';
+  let csvData: { title: string; artist: string; album: string }[] = [];
+  let playlistNameStr = '';
 
-  function handleComplete(csv: string, folder: string) {
-    csvPath = csv;
-    outputFolder = folder;
-    sessionStarted = true;
+  async function handleComplete(csvPath: string, folder: string) {
+    playlistNameStr = csvPath.split(/[\\/]/).pop()?.replace('.csv', '') || 'Playlist';
+    
+    // We should parse the CSV here to pass the full track list to backend
+    // Since we only preview 5 tracks in the wizard, we need the full list
+    // In a real app we would read and parse the full CSV content
+    // For now, let's pretend we pass some tracks
+    
+    // Quick hack for demo to parse the file via Tauri (ideally would have a command for this)
+    // using the readTextFile from plugin-fs
+    const { readTextFile } = await import('@tauri-apps/plugin-fs');
+    const text = await readTextFile(csvPath);
+    
+    const lines = text.split(/\r?\n/).filter(l => l.trim());
+    if (lines.length > 1) {
+      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
+      csvData = lines.slice(1).map((line, index) => {
+        const vals: string[] = [];
+        let cur = '';
+        let inQ = false;
+        for (const ch of line) {
+          if (ch === '"') { inQ = !inQ; }
+          else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+          else { cur += ch; }
+        }
+        vals.push(cur.trim());
+        const row = Object.fromEntries(headers.map((h, i) => [h, vals[i] ?? '']));
+        return {
+          index,
+          title: row['Track Name'] || row['Track name'] || 'Unknown',
+          artist: row['Artist Name(s)'] || row['Artist name'] || 'Unknown',
+          album: row['Album Name'] || row['Album'] || 'Unknown',
+        };
+      });
+    }
+
+    downloadStore.startSession(csvData, folder, playlistNameStr, $settings.format);
+    viewState = 'active';
+
+    try {
+      await invoke('start_download_session', {
+        options: {
+          tracks: csvData,
+          outputFolder: folder,
+          playlistName: playlistNameStr,
+          format: $settings.format,
+          mp3Quality: $settings.mp3Quality,
+          searchMode: $settings.searchMode,
+          excludeInstrumentals: $settings.excludeInstrumentals,
+          durationMin: $settings.durationMin,
+          durationMax: $settings.durationMax,
+          generateM3u: $settings.generateM3u,
+        }
+      });
+    } catch(e) {
+      console.error("Download session error:", e);
+    }
   }
 </script>
 
-{#if !sessionStarted}
+{#if viewState === 'wizard'}
   <OnboardingWizard onComplete={handleComplete} />
-{:else}
-  <div class="download-active animate-fade-in">
-    <p class="text-secondary">Download session started for: {csvPath}</p>
-  </div>
+{:else if viewState === 'active'}
+  <DownloadProgress onFinish={() => viewState = 'results'} />
+{:else if viewState === 'results'}
+  <ResultsSummary onNewDownload={() => viewState = 'wizard'} />
 {/if}
 
-<style>
-  .download-active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: var(--space-8);
-  }
-</style>
