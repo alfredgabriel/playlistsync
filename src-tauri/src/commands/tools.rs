@@ -4,6 +4,7 @@ use tauri::Manager;
 
 /// Result of checking whether yt-dlp and ffmpeg are available on the system.
 #[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ToolStatus {
     pub ytdlp_available: bool,
     pub ytdlp_path: Option<String>,

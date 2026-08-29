@@ -73,10 +73,9 @@
     "search_fast": "Fast (1 result per song, ~3s each)",
     "search_deep": "Deep (3 results + scoring, ~20s each, more accurate)",
     "filters": "Filters",
-    "exclude_instrumentals": "Exclude instrumental versions",
-    "duration_min": "Min duration (seconds)",
-    "duration_max": "Max duration (seconds)",
-    "tools": "Tools",
+    "exclude_instrumentals_label": "Exclude instrumental versions",
+    "duration_range_label": "Acceptable Duration (sec)",
+    "tools_title": "System Tools",
     "update_ytdlp": "Update yt-dlp",
     "save_btn": "Save settings"
   },

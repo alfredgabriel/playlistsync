@@ -66,11 +66,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-md);
-    background: var(--bg-elevated);
-    box-shadow: var(--shadow-glow-green);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
     flex-shrink: 0;
   }
 
