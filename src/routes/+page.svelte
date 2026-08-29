@@ -6,6 +6,7 @@
 
   import Sidebar from '../components/Sidebar.svelte';
   import Header  from '../components/Header.svelte';
+  import ToolCheckBanner from '../components/ToolCheckBanner.svelte';
   import Home     from '../views/Home.svelte';
   import Download from '../views/Download.svelte';
   import History  from '../views/History.svelte';
@@ -29,6 +30,7 @@
     <Sidebar bind:activeView />
 
     <div class="app-main">
+      <ToolCheckBanner />
       <Header title={$_(VIEW_TITLES[activeView] ? `nav.${activeView}` : '')} />
 
       <main class="app-content">
