@@ -1,5 +1,6 @@
-﻿<script lang="ts">
+<script lang="ts">
   import { _ } from 'svelte-i18n';
+  import logoUrl from '../assets/logo.png';
 
   export let activeView: string;
 
@@ -14,16 +15,7 @@
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="14" fill="url(#grad)" />
-        <path d="M9 14a5 5 0 1 0 10 0 5 5 0 0 0-10 0zm5-2.5v5M11.5 14h5" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
-        <defs>
-          <linearGradient id="grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#1ed760"/>
-            <stop offset="1" stop-color="#7c3aed"/>
-          </linearGradient>
-        </defs>
-      </svg>
+      <img src={logoUrl} alt="PlaylistSync Logo" style="width: 100%; height: 100%; border-radius: inherit; object-fit: cover;" />
     </div>
     <span class="logo-text">PlaylistSync</span>
   </div>

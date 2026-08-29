@@ -64,6 +64,7 @@ pub async fn start_download_session(
         emit_progress(&app, track.index, TrackStatus::Searching, None, None);
         
         let search_res = crate::commands::search::search_track(
+            app.clone(),
             track.title.clone(),
             track.artist.clone(),
             track.album.clone(),
@@ -84,17 +85,24 @@ pub async fn start_download_session(
                 let filepath = output_dir.join(&filename);
 
                 let url = format!("https://www.youtube.com/watch?v={}", best.video_id);
-                let mut cmd = tokio::process::Command::new("yt-dlp");
+                
+                let ytdlp_path = crate::commands::tools::get_tool_path(&app, "yt-dlp.exe")
+                    .ok_or_else(|| "yt-dlp not found.".to_string())?;
+                let mut cmd = tokio::process::Command::new(ytdlp_path);
                 
                 cmd.args(["--no-warnings", "--quiet"]);
 
                 if options.format == "m4a" {
                     cmd.args(["-f", "bestaudio[ext=m4a]"]);
                 } else {
+                    let ffmpeg_path = crate::commands::tools::get_tool_path(&app, "ffmpeg.exe")
+                        .ok_or_else(|| "ffmpeg not found.".to_string())?;
+                        
                     cmd.args([
                         "-x",
                         "--audio-format", "mp3",
                         "--audio-quality", &options.mp3_quality,
+                        "--ffmpeg-location", &ffmpeg_path.to_string_lossy(),
                     ]);
                 }
                 

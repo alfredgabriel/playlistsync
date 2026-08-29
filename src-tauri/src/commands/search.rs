@@ -1,4 +1,5 @@
 use crate::models::{SearchResult, YtdlpEntry};
+use crate::commands::tools::get_tool_path;
 
 /// Penalty keywords that indicate an undesired result (instrumental, karaoke, live, etc.).
 /// Mirrors the scoring logic from spotify2media.py.
@@ -73,6 +74,7 @@ fn score_entry(
 /// Uses yt-dlp's `ytsearch` with either 1 result (fast) or 5 results (deep).
 #[tauri::command]
 pub async fn search_track(
+    app: tauri::AppHandle,
     title: String,
     artist: String,
     _album: String,
@@ -92,7 +94,10 @@ pub async fn search_track(
         CREATE_NO_WINDOW
     };
 
-    let mut cmd = tokio::process::Command::new("yt-dlp");
+    let ytdlp_path = get_tool_path(&app, "yt-dlp.exe")
+        .ok_or_else(|| "yt-dlp not found. Please install it or use the bundled version.".to_string())?;
+
+    let mut cmd = tokio::process::Command::new(ytdlp_path);
     cmd.args([
         "--dump-json",
         "--no-playlist",
@@ -106,7 +111,7 @@ pub async fn search_track(
     cmd.creation_flags(create_no_window);
 
     let output = cmd.output().await.map_err(|e| {
-        format!("yt-dlp not found or failed to run: {}. Make sure yt-dlp is installed and in PATH.", e)
+        format!("yt-dlp failed to run: {}", e)
     })?;
 
     if !output.status.success() {
