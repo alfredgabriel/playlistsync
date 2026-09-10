@@ -15,7 +15,7 @@
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="logo-icon">
-      <img src={logoUrl} alt="PlaylistSync" style="width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) contrast(200%);" />
+      <img src={logoUrl} alt="PlaylistSync" style="width: 100%; height: 100%; object-fit: contain; " />
     </div>
     <div class="logo-text">
       PLAYLIST<span class="logo-strike">SYNC</span>
