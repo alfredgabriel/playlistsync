@@ -1,81 +1,123 @@
-<div align="center">
-  <img src="src/assets/logo.png" alt="PlaylistSync Logo" width="120" />
+# 🎵 PlaylistSync
+### Sincronizador y descargador de playlists de audio en alta calidad
+*Desktop application to import playlist CSVs and download high-quality audio with embedded metadata.*
 
-  <h1>💽 PlaylistSync</h1>
-  <p><strong>Download your music, your way. A blazing-fast desktop application to import playlist CSVs and download tracks in high-quality audio.</strong></p>
-
-  <p>
-    <img src="https://img.shields.io/badge/Tauri-v2-FFC131?logo=tauri&logoColor=white" alt="Tauri" />
-    <img src="https://img.shields.io/badge/Svelte-v5-FF3E00?logo=svelte&logoColor=white" alt="Svelte" />
-    <img src="https://img.shields.io/badge/Rust-Backend-000000?logo=rust&logoColor=white" alt="Rust" />
-    <img src="https://img.shields.io/badge/yt--dlp-Bundled-ff0000" alt="yt-dlp" />
-  </p>
-</div>
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Built with Tauri v2](https://img.shields.io/badge/Built%20with-Tauri%20v2-24C8D8?logo=tauri&logoColor=white)](https://tauri.app/)
+[![Svelte v5](https://img.shields.io/badge/Svelte-v5-FF3E00?logo=svelte&logoColor=white)](https://svelte.dev/)
+[![Rust Backend](https://img.shields.io/badge/Rust-Backend-black?logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![yt-dlp Bundled](https://img.shields.io/badge/yt--dlp-Bundled-red)](https://github.com/yt-dlp/yt-dlp)
+[![Brutalist UI](https://img.shields.io/badge/UI-Brutalist%20Monochrome-white)](https://github.com/alfredgabriel/playlistsync)
 
 ---
 
-## 📸 App Preview
-
-<img src="PlaylistSync.png" width="800" alt="PlaylistSync App Screenshot" />
-
-## ✨ Features
-
-- 📄 **Any Playlist CSV:** Compatible with [Exportify](https://exportify.net/) (Spotify) and TuneMyMusic exports.
-- 🎵 **High Quality:** Downloads best-quality audio using `yt-dlp` and `ffmpeg` (both bundled internally).
-- 🏷️ **Auto Metadata:** Automatically embeds Title, Artist, Album, and Track Number into the downloaded files.
-- 🌍 **Multilingual:** Full support for English, Spanish, French, and German.
-- ⚡ **Plug and Play:** No need to install external dependencies like Python, FFmpeg or yt-dlp in your system path. Everything just works out of the box.
+![PlaylistSync Preview](PlaylistSync.png)
 
 ---
 
-## 🚀 How to Run (Development)
+## 🇪🇸 Español
 
-If you have downloaded this source code and want to run it on your machine, follow these simple steps:
+### 1. Visión y Propósito
 
-### Prerequisites
-Make sure you have installed on your system:
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [Rust](https://www.rust-lang.org/tools/install)
+**PlaylistSync** es una aplicación de escritorio diseñada para convertir tus listas de reproducción exportadas en archivos de audio de alta fidelidad, listos para tu reproductor local, coche o biblioteca offline.
 
-### 1. Install Dependencies
-Open your terminal in the project folder and run:
+Importa cualquier archivo `.csv` generado por herramientas como **Exportify** (Spotify) o **TuneMyMusic**, busca automáticamente las mejores coincidencias en YouTube Music y descarga cada pista etiquetándola con su metadato oficial (título, artista, álbum y carátula).
+
+Todo funciona de forma autónoma: **no necesitas instalar Python, ni FFmpeg ni yt-dlp** en tu sistema operativo, ya que vienen empaquetados internamente como binarios nativos (sidecars de Tauri).
+
+---
+
+### 🚀 Uso Rápido
+
+#### 1. Exportar tu lista a CSV
+- Para Spotify: entra en [Exportify](https://exportify.net/) y descarga el `.csv` de tu playlist.
+- Para otras plataformas (Apple Music, Tidal, Deezer): usa [TuneMyMusic](https://www.tunemymusic.com/transfer).
+
+#### 2. Cargar en PlaylistSync
+1. Abre la aplicación y entra en la pestaña **DOWNLOAD**.
+2. Arrastra el archivo `.csv` a la zona de carga o haz clic para seleccionarlo.
+3. Comprueba la previsualización de las canciones detectadas.
+
+#### 3. Configurar y Descargar
+1. Elige la carpeta destino en tu disco donde se guardará la música.
+2. Selecciona el formato de audio:
+   - **M4A (AAC 192kbps)** — Calidad recomendada, menor peso y máxima compatibilidad.
+   - **MP3 (hasta 320kbps / VBR0)** — Compatibilidad universal.
+3. (Opcional) Activa la generación del archivo `.m3u` para importar la playlist completa en reproductores como VLC, foobar2000 o Poweramp.
+4. Pulsa **START DOWNLOAD →** y observa el progreso pista a pista.
+
+---
+
+### 🛠️ Desarrollo y Compilación
+
+#### Requisitos
+- [Node.js](https://nodejs.org/) v18+
+- [Rust](https://www.rust-lang.org/tools/install) y herramientas de compilación de C++ (MSVC en Windows)
+
+#### Ejecutar en desarrollo
 ```bash
 npm install
-```
-
-### 2. Start the App
-Launch the app in development mode with hot-reloading:
-```bash
 npm run tauri dev
 ```
-> *Note: The first time you run this command, Rust will compile the backend, which might take a few minutes. Subsequent runs will be much faster.*
 
----
-
-## 📦 How to Build (Production)
-
-To create a standalone executable (`.exe` / `.dmg` / `.AppImage`) that you can share with anyone:
-
+#### Compilar ejecutable de producción (.exe / instalador)
 ```bash
 npm run tauri build
 ```
-Once finished, you will find the installer and the executable file in:
+El instalador y el ejecutable standalone se generarán en:
 `src-tauri/target/release/bundle/`
 
 ---
 
-## 📖 How to Use the App
+### 🛡️ Características Principales
 
-1. **Export your playlist:** Go to a tool like [Exportify](https://exportify.net/) (for Spotify) or TuneMyMusic and export your playlist as a `.csv` file.
-2. **Open PlaylistSync:** Go to the "Download" tab.
-3. **Drag and Drop:** Drag your `.csv` file into the app.
-4. **Choose your settings:** Select the output folder where you want your music saved, and pick your format (M4A recommended).
-5. **Download:** Click "Start Download" and watch the magic happen. The app will search YouTube Music for the best matches and download them automatically with metadata included.
+- ⚡ **Sidecars autónomos**: `yt-dlp` y `ffmpeg` preempaquetados; no requiere configuración en el PATH del sistema.
+- 🏷️ **Metadatos completos**: Inyección automática de ID3v2/MP4 tags (Artista, Título, Álbum, Número de pista).
+- 🌐 **Multilingüe**: Interfaz disponible en Español, Inglés, Francés y Alemán.
+- 🖤 **Estética Brutalista**: Diseño minimalista de alto contraste en blanco y negro, optimizado para legibilidad y rendimiento.
 
 ---
 
-## 🛠️ Stack & Architecture
+## 🇬🇧 English
 
-- **Frontend:** SvelteKit + TypeScript + Vanilla CSS (Glassmorphism design).
-- **Backend:** Rust + Tauri v2.
-- **Tools:** `yt-dlp` and `ffmpeg` are bundled directly inside the app as native Tauri sidecars, avoiding any messy system PATH configurations for the end user.
+### 1. Overview & Purpose
+
+**PlaylistSync** is a high-performance desktop application designed to bridge the gap between streaming playlists and your offline audio library.
+
+Import any standard `.csv` export from **Exportify** (Spotify) or **TuneMyMusic**, automatically locate matches on YouTube Music, and download high-bitrate audio with comprehensive metadata tags embedded directly into each file.
+
+**No external dependencies required**: yt-dlp and ffmpeg are bundled directly within the app as native Tauri sidecars.
+
+---
+
+### 🚀 Step-by-Step Guide
+
+1. **Export Playlist:** Export your playlist to `.csv` using [Exportify](https://exportify.net/) or [TuneMyMusic](https://www.tunemymusic.com/transfer).
+2. **Import:** Drag & drop the `.csv` file into PlaylistSync under the **DOWNLOAD** tab.
+3. **Configure:** Pick your destination folder, preferred format (M4A or MP3), and playlist file options (`.m3u`).
+4. **Execute:** Click **START DOWNLOAD →** to download and tag every track with real-time feedback.
+
+---
+
+### 🛠️ Development & Build
+
+#### Prerequisites
+- [Node.js](https://nodejs.org/) v18+
+- [Rust](https://www.rust-lang.org/tools/install)
+
+#### Run locally (dev mode)
+```bash
+npm install
+npm run tauri dev
+```
+
+#### Build standalone release
+```bash
+npm run tauri build
+```
+
+---
+
+## 📜 License
+
+Distributed under the **MIT License**. See `LICENSE` for details.

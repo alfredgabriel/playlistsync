@@ -18,7 +18,7 @@
 {#if !ytdlpAvailable || !ffmpegAvailable}
   <div class="tool-banner">
     <div class="banner-content">
-      <strong>⚠️ {$_('settings.tools_title')}:</strong> 
+      <strong>[ALERT] {$_('settings.tools_title').toUpperCase()}:</strong> 
       {#if !ytdlpAvailable} <span>{$_('banner.ytdlp_missing')}</span> {/if}
       {#if !ffmpegAvailable} <span>{$_('banner.ffmpeg_missing')}</span> {/if}
       <span class="muted">{$_('banner.install_hint')}</span>
@@ -28,11 +28,12 @@
 
 <style>
   .tool-banner {
-    background: rgba(248, 113, 113, 0.1);
-    border-bottom: 1px solid rgba(248, 113, 113, 0.2);
+    background: #000000;
+    border-bottom: 1px solid var(--status-error);
     color: var(--status-error);
     padding: var(--space-2) var(--space-4);
-    font-size: var(--text-sm);
+    font-size: 11px;
+    font-family: var(--font-mono);
     display: flex;
     justify-content: center;
   }
@@ -42,8 +43,8 @@
     align-items: center;
   }
   .muted {
-    color: var(--text-muted);
-    font-size: var(--text-xs);
+    color: #888888;
+    font-size: 10px;
     margin-left: var(--space-4);
   }
 </style>

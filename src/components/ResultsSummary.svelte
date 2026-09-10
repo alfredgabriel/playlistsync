@@ -11,7 +11,7 @@
   function formatDuration(ms: number) {
     const s = Math.floor(ms / 1000);
     const m = Math.floor(s / 60);
-    return `${m}m ${s % 60}s`;
+    return `${m}M ${s % 60}S`;
   }
 
   async function handleOpenFolder() {
@@ -28,36 +28,37 @@
 
 {#if session}
   <div class="results-container animate-fade-in">
-    <div class="confetti-bg"></div>
     <div class="results-content">
-      <div class="icon-big">{session.failedTracks === 0 ? '🎉' : '✅'}</div>
-      <h2 class="title">{$_('results.title')}</h2>
+      <div class="status-indicator">
+        [PROCESS {session.failedTracks === 0 ? 'COMPLETED' : 'FINISHED WITH WARNINGS'}]
+      </div>
+      <h2 class="title">{$_('results.title').toUpperCase()}</h2>
       
       <div class="stats-grid">
-        <div class="stat-card success">
-          <span class="stat-val">{session.doneTracks}</span>
-          <span class="stat-lbl">{$_('results.downloaded_label')}</span>
+        <div class="stat-card">
+          <span class="stat-lbl">// {$_('results.downloaded_label').toUpperCase()}</span>
+          <span class="stat-val">{session.doneTracks} / {session.totalTracks}</span>
         </div>
         {#if session.failedTracks > 0}
           <div class="stat-card error">
+            <span class="stat-lbl">// {$_('results.failed_label').toUpperCase()}</span>
             <span class="stat-val">{session.failedTracks}</span>
-            <span class="stat-lbl">{$_('results.failed_label')}</span>
           </div>
         {/if}
-        <div class="stat-card neutral">
+        <div class="stat-card">
+          <span class="stat-lbl">// {$_('results.time_taken').toUpperCase()}</span>
           <span class="stat-val">{formatDuration((session.completedAt || Date.now()) - session.startedAt)}</span>
-          <span class="stat-lbl">{$_('results.time_taken')}</span>
         </div>
       </div>
 
       {#if failedTracks.length > 0}
-        <div class="failed-list card-elevated">
-          <h3 class="failed-title">{$_('results.failed_list_title')}</h3>
-          <div class="failed-items">
+        <div class="failed-section">
+          <h3 class="failed-title">[FAILED TRACKS ({failedTracks.length})]</h3>
+          <div class="failed-list">
             {#each failedTracks as track}
               <div class="failed-item">
-                <span class="failed-track">{track.title} - {track.artist}</span>
-                <span class="failed-reason">{track.error || $_('errors.unknown')}</span>
+                <span class="track-name">{track.artist} - {track.title}</span>
+                <span class="track-err">{track.error || 'Unknown error'}</span>
               </div>
             {/each}
           </div>
@@ -66,10 +67,10 @@
 
       <div class="actions">
         <button class="btn btn-secondary btn-lg" on:click={handleOpenFolder}>
-          📁 {$_('results.open_folder')}
+          {$_('results.open_folder_btn')} →
         </button>
         <button class="btn btn-primary btn-lg" on:click={handleNew}>
-          🔄 {$_('results.new_download')}
+          {$_('results.new_download_btn')}
         </button>
       </div>
     </div>
@@ -78,98 +79,113 @@
 
 <style>
   .results-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: var(--space-8);
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #000000;
     overflow-y: auto;
   }
 
   .results-content {
     max-width: 600px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-6);
-    z-index: 1;
+    border: 1px solid var(--border-muted);
+    background: #050505;
+    padding: var(--space-8);
+    text-align: left;
   }
 
-  .icon-big {
-    font-size: 5rem;
-    animation: slideUp var(--transition-normal) ease both;
+  .status-indicator {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: #888888;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
   }
 
   .title {
-    font-size: var(--text-3xl);
-    font-weight: var(--font-bold);
-    color: var(--text-primary);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-6);
   }
 
   .stats-grid {
-    display: flex;
-    gap: var(--space-4);
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
   }
 
   .stat-card {
-    flex: 1;
+    background: #000000;
+    border: 1px solid var(--border-muted);
+    padding: var(--space-4);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: var(--space-4);
-    border-radius: var(--radius-lg);
-    background: var(--bg-glass);
-    border: 1px solid var(--border-subtle);
+    gap: var(--space-1);
+    font-family: var(--font-mono);
   }
 
-  .stat-card.success { border-color: rgba(30, 215, 96, 0.3); background: rgba(30, 215, 96, 0.05); }
-  .stat-card.error { border-color: rgba(248, 113, 113, 0.3); background: rgba(248, 113, 113, 0.05); }
+  .stat-card.error {
+    border-color: var(--status-error);
+  }
 
-  .stat-val { font-size: var(--text-2xl); font-weight: var(--font-bold); }
-  .success .stat-val { color: var(--status-done); }
-  .error .stat-val { color: var(--status-error); }
-  .neutral .stat-val { color: var(--text-primary); }
+  .stat-card.error .stat-val {
+    color: var(--status-error);
+  }
 
-  .stat-lbl { font-size: var(--text-xs); color: var(--text-muted); text-align: center; }
+  .stat-lbl {
+    font-size: 10px;
+    color: #666666;
+  }
 
-  .failed-list {
-    width: 100%;
+  .stat-val {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .failed-section {
+    margin-bottom: var(--space-6);
+    border: 1px solid var(--status-error);
+    background: #110505;
     padding: var(--space-4);
   }
 
   .failed-title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-bold);
+    font-size: 11px;
     color: var(--status-error);
+    font-family: var(--font-mono);
     margin-bottom: var(--space-2);
   }
 
-  .failed-items {
-    max-height: 200px;
+  .failed-list {
+    max-height: 120px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: 4px;
+    font-size: 10px;
+    font-family: var(--font-mono);
   }
 
   .failed-item {
     display: flex;
-    flex-direction: column;
-    font-size: var(--text-xs);
-    background: var(--bg-base);
-    padding: var(--space-2);
-    border-radius: var(--radius-sm);
+    justify-content: space-between;
+    gap: var(--space-2);
   }
 
-  .failed-track { color: var(--text-secondary); font-weight: var(--font-medium); }
-  .failed-reason { color: var(--status-error); }
+  .track-name { color: #ffffff; }
+  .track-err { color: #888888; }
 
   .actions {
     display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-4);
+    gap: var(--space-3);
+    margin-top: var(--space-6);
   }
 </style>

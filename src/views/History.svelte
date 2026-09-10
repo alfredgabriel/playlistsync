@@ -29,23 +29,26 @@
 
 <div class="history-view animate-fade-in">
   <div class="header">
-    <h1 class="page-title">{$_('nav.history')}</h1>
+    <div>
+      <div class="meta-tag">// DOWNLOAD LOGS</div>
+      <h1 class="page-title">{$_('nav.history').toUpperCase()}</h1>
+    </div>
     {#if $historyStore.length > 0}
       <button class="btn btn-secondary btn-sm" on:click={handleClear}>
-        🗑 {$_('history.clear_btn')}
+        [CLEAR] {$_('history.clear_btn')}
       </button>
     {/if}
   </div>
 
   {#if $historyStore.length === 0}
     <div class="empty-state">
-      <div class="empty-icon">📭</div>
+      <div class="empty-tag">[NO LOGS FOUND]</div>
       <p class="empty-text">{$_('history.empty')}</p>
     </div>
   {:else}
     <div class="history-list">
       {#each $historyStore as session, i}
-        <div class="history-card card-elevated" style="animation-delay: {i * 0.05}s">
+        <div class="history-card" style="animation-delay: {i * 0.05}s">
           <div class="card-header">
             <h3 class="playlist-name">{session.playlistName}</h3>
             <span class="date">{formatDate(session.startedAt)}</span>
@@ -54,25 +57,25 @@
           <div class="card-stats">
             <div class="stat">
               <span class="val success">{session.doneTracks}</span>
-              <span class="lbl">{$_('results.downloaded_label')}</span>
+              <span class="lbl">{$_('results.downloaded_label').toUpperCase()}</span>
             </div>
             <div class="stat">
               <span class="val error">{session.failedTracks}</span>
-              <span class="lbl">{$_('results.failed_label')}</span>
+              <span class="lbl">{$_('results.failed_label').toUpperCase()}</span>
             </div>
             <div class="stat">
               <span class="val format">{session.format.toUpperCase()}</span>
-              <span class="lbl">{$_('history.format_lbl')}</span>
+              <span class="lbl">{$_('history.format_lbl').toUpperCase()}</span>
             </div>
             <div class="stat">
-              <span class="val time">{session.elapsedSecs}s</span>
-              <span class="lbl">{$_('history.time_lbl')}</span>
+              <span class="val time">{session.elapsedSecs}S</span>
+              <span class="lbl">{$_('history.time_lbl').toUpperCase()}</span>
             </div>
           </div>
 
           <div class="card-actions">
             <button class="btn btn-secondary btn-sm" on:click={() => handleOpen(session.outputFolder)}>
-              📁 {$_('results.open_folder')}
+              {$_('results.open_folder')} →
             </button>
           </div>
         </div>
@@ -88,19 +91,31 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    background: #000000;
   }
 
   .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: var(--space-6);
     flex-shrink: 0;
   }
 
+  .meta-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #666666;
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-1);
+  }
+
   .page-title {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
   }
 
   .empty-state {
@@ -109,18 +124,29 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: #555555;
+    border: 1px dashed var(--border-muted);
+    background: #050505;
+    padding: var(--space-8);
   }
 
-  .empty-icon {
-    font-size: 4rem;
-    margin-bottom: var(--space-4);
-    opacity: 0.5;
+  .empty-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888888;
+    margin-bottom: var(--space-2);
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+  }
+
+  .empty-text {
+    font-size: 11px;
+    color: #666666;
   }
 
   .history-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--space-4);
   }
 
@@ -128,8 +154,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    padding: var(--space-4);
-    animation: slideUp var(--transition-normal) ease backwards;
+    padding: var(--space-5);
+    background: #050505;
+    border: 1px solid var(--border-muted);
   }
 
   .card-header {
@@ -139,47 +166,53 @@
   }
 
   .playlist-name {
-    font-size: var(--text-base);
-    font-weight: var(--font-bold);
-    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 70%;
+    max-width: 65%;
   }
 
   .date {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
+    font-size: 10px;
+    color: #555555;
+    font-family: var(--font-mono);
   }
 
   .card-stats {
     display: flex;
     justify-content: space-between;
-    background: var(--bg-base);
+    background: #000000;
     padding: var(--space-3);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--border-muted);
+    font-family: var(--font-mono);
   }
 
   .stat {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2px;
   }
 
   .val {
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
   }
 
-  .val.success { color: var(--status-done); }
+  .val.success { color: #ffffff; }
   .val.error { color: var(--status-error); }
-  .val.format { color: var(--primary-base); }
-  .val.time { color: var(--text-primary); }
+  .val.format { color: #888888; }
+  .val.time { color: #ffffff; }
 
   .lbl {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
+    font-size: 9px;
+    color: #555555;
+    letter-spacing: 0.05em;
   }
 
   .card-actions {

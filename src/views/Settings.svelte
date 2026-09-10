@@ -32,15 +32,18 @@
 </script>
 
 <div class="settings-view animate-fade-in">
-  <h1 class="page-title">{$_('nav.settings')}</h1>
+  <div class="header-section">
+    <div class="meta-tag">// SYSTEM CONFIGURATION</div>
+    <h1 class="page-title">{$_('nav.settings').toUpperCase()}</h1>
+  </div>
 
   <div class="settings-grid">
     <!-- Format & Quality -->
     <section class="settings-group card-elevated">
-      <h2 class="group-title">{$_('settings.audio_format_title')}</h2>
+      <h2 class="group-title">// {$_('settings.audio_format_title').toUpperCase()}</h2>
       
       <div class="setting-item">
-        <label>{$_('settings.format_label')}</label>
+        <span class="item-label">{$_('settings.format_label').toUpperCase()}</span>
         <div class="btn-group">
           <button class="btn btn-sm" class:btn-primary={$settings.format === 'm4a'} class:btn-secondary={$settings.format !== 'm4a'} on:click={() => handleUpdate('format', 'm4a')}>
             M4A (AAC)
@@ -53,8 +56,8 @@
 
       {#if $settings.format === 'mp3'}
         <div class="setting-item animate-fade-in">
-          <label>{$_('settings.mp3_quality_label')}</label>
-          <select class="input-field" value={$settings.mp3Quality} on:change={(e) => handleUpdate('mp3Quality', e.currentTarget.value)}>
+          <span class="item-label">{$_('settings.mp3_quality_label').toUpperCase()}</span>
+          <select class="form-input form-select" value={$settings.mp3Quality} on:change={(e) => handleUpdate('mp3Quality', e.currentTarget.value)}>
             <option value="vbr0">VBR0 (Best, Variable)</option>
             <option value="192">192 kbps (Good)</option>
             <option value="128">128 kbps (Smaller)</option>
@@ -63,21 +66,21 @@
       {/if}
 
       <div class="setting-item">
-        <label>{$_('settings.generate_m3u_label')}</label>
-        <label class="toggle-switch">
+        <span class="item-label">{$_('settings.generate_m3u_label').toUpperCase()}</span>
+        <label class="toggle-checkbox">
           <input type="checkbox" checked={$settings.generateM3u} on:change={(e) => handleUpdate('generateM3u', e.currentTarget.checked)} />
-          <span class="slider"></span>
+          <span class="box-indicator"></span>
         </label>
       </div>
     </section>
 
     <!-- Search & Filters -->
     <section class="settings-group card-elevated">
-      <h2 class="group-title">{$_('settings.search_filters_title')}</h2>
+      <h2 class="group-title">// {$_('settings.search_filters_title').toUpperCase()}</h2>
 
       <div class="setting-item">
         <div class="item-info">
-          <label>{$_('settings.search_mode_label')}</label>
+          <span class="item-label">{$_('settings.search_mode_label').toUpperCase()}</span>
           <span class="hint">{$_('settings.search_mode_hint')}</span>
         </div>
         <div class="btn-group">
@@ -92,52 +95,56 @@
 
       <div class="setting-item">
         <div class="item-info">
-          <label>{$_('settings.exclude_instrumentals_label')}</label>
+          <span class="item-label">{$_('settings.exclude_instrumentals_label').toUpperCase()}</span>
         </div>
-        <label class="toggle-switch">
+        <label class="toggle-checkbox">
           <input type="checkbox" checked={$settings.excludeInstrumentals} on:change={(e) => handleUpdate('excludeInstrumentals', e.currentTarget.checked)} />
-          <span class="slider"></span>
+          <span class="box-indicator"></span>
         </label>
       </div>
 
       <div class="setting-item inline-inputs">
         <div class="item-info">
-          <label>{$_('settings.duration_range_label')}</label>
+          <span class="item-label">{$_('settings.duration_range_label').toUpperCase()}</span>
         </div>
         <div class="inputs">
-          <input type="number" class="input-field short" value={$settings.durationMin} on:change={(e) => handleUpdate('durationMin', parseInt(e.currentTarget.value))} min="0" />
+          <input type="number" class="form-input short" value={$settings.durationMin} on:change={(e) => handleUpdate('durationMin', parseInt(e.currentTarget.value))} min="0" />
           <span>-</span>
-          <input type="number" class="input-field short" value={$settings.durationMax} on:change={(e) => handleUpdate('durationMax', parseInt(e.currentTarget.value))} min="0" />
-          <span>{$_('settings.seconds_unit')}</span>
+          <input type="number" class="form-input short" value={$settings.durationMax} on:change={(e) => handleUpdate('durationMax', parseInt(e.currentTarget.value))} min="0" />
+          <span class="unit">{$_('settings.seconds_unit').toUpperCase()}</span>
         </div>
       </div>
     </section>
 
-    <!-- System Tools -->
+    <!-- System Diagnostics -->
     <section class="settings-group card-elevated">
-      <h2 class="group-title">{$_('settings.tools_title')}</h2>
-      
+      <h2 class="group-title">// {$_('settings.tools_title').toUpperCase()}</h2>
+
       {#if toolStatus}
         <div class="tool-item">
-          <span class="tool-icon">{toolStatus.ytdlpAvailable ? '✅' : '❌'}</span>
+          <span class="badge {toolStatus.ytdlpAvailable ? 'badge-done' : 'badge-error'}">
+            {toolStatus.ytdlpAvailable ? '[OK]' : '[FAIL]'}
+          </span>
           <div class="tool-info">
-            <strong>yt-dlp</strong>
+            <strong>YT-DLP</strong>
             <span class="tool-path" title={toolStatus.ytdlpPath || ''}>{toolStatus.ytdlpPath || $_('settings.not_found_path')}</span>
             {#if toolStatus.ytdlpAvailable}
-              <span class="tool-version">v{ytdlpVersion}</span>
+              <span class="tool-version">V{ytdlpVersion}</span>
             {/if}
           </div>
         </div>
 
         <div class="tool-item">
-          <span class="tool-icon">{toolStatus.ffmpegAvailable ? '✅' : '❌'}</span>
+          <span class="badge {toolStatus.ffmpegAvailable ? 'badge-done' : 'badge-error'}">
+            {toolStatus.ffmpegAvailable ? '[OK]' : '[FAIL]'}
+          </span>
           <div class="tool-info">
-            <strong>ffmpeg</strong>
+            <strong>FFMPEG</strong>
             <span class="tool-path" title={toolStatus.ffmpegPath || ''}>{toolStatus.ffmpegPath || $_('settings.not_found_path')}</span>
           </div>
         </div>
       {:else}
-        <div class="loading-tools">{$_('settings.checking_tools')}</div>
+        <div class="loading-tools">{$_('settings.checking_tools').toUpperCase()}</div>
       {/if}
     </section>
   </div>
@@ -148,21 +155,38 @@
     padding: var(--space-6);
     height: 100%;
     overflow-y: auto;
+    background: #000000;
+  }
+
+  .header-section {
+    margin-bottom: var(--space-6);
+  }
+
+  .meta-tag {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #666666;
+    font-family: var(--font-mono);
+    margin-bottom: var(--space-1);
   }
 
   .page-title {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-6);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
   }
 
   .settings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--space-6);
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--space-4);
   }
 
   .settings-group {
+    background: #050505;
+    border: 1px solid var(--border-muted);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
@@ -170,11 +194,12 @@
   }
 
   .group-title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-    margin-bottom: var(--space-2);
-    border-bottom: 1px solid var(--border-subtle);
+    font-size: 11px;
+    font-weight: 700;
+    color: #888888;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    border-bottom: 1px solid var(--border-muted);
     padding-bottom: var(--space-2);
   }
 
@@ -185,123 +210,126 @@
     gap: var(--space-4);
   }
 
+  .item-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    font-family: var(--font-mono);
+  }
+
   .item-info {
     display: flex;
     flex-direction: column;
-  }
-
-  .setting-item label {
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    color: var(--text-secondary);
+    gap: 2px;
   }
 
   .hint {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
+    font-size: 10px;
+    color: #555555;
+    line-height: 1.4;
   }
 
   .btn-group {
     display: flex;
-    gap: var(--space-1);
+    gap: 4px;
   }
 
   .inline-inputs .inputs {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+    font-size: 11px;
+    color: #888888;
+    font-family: var(--font-mono);
   }
 
-  .input-field.short {
-    width: 70px;
-    padding: var(--space-2);
+  .form-input.short {
+    width: 65px;
+    padding: 6px;
     text-align: right;
+    font-family: var(--font-mono);
   }
 
-  /* Toggle Switch */
-  .toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 44px;
-    height: 24px;
+  .unit {
+    font-size: 10px;
+    color: #555555;
   }
 
-  .toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
+  .toggle-checkbox {
     cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: var(--bg-base);
-    transition: .3s;
-    border-radius: 24px;
-    border: 1px solid var(--border-subtle);
+    display: inline-flex;
+    align-items: center;
   }
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
+  .toggle-checkbox input {
+    display: none;
+  }
+
+  .box-indicator {
     width: 18px;
-    left: 2px;
-    bottom: 2px;
-    background-color: var(--text-secondary);
-    transition: .3s;
-    border-radius: 50%;
+    height: 18px;
+    border: 1px solid #444444;
+    background: #000000;
+    display: inline-block;
+    position: relative;
+    transition: all 0.1s;
   }
 
-  input:checked + .slider {
-    background-color: var(--primary-base);
-    border-color: var(--primary-base);
+  .toggle-checkbox input:checked + .box-indicator {
+    background: #ffffff;
+    border-color: #ffffff;
   }
 
-  input:checked + .slider:before {
-    transform: translateX(20px);
-    background-color: white;
+  .toggle-checkbox input:checked + .box-indicator::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background: #000000;
   }
 
-  /* Tools */
   .tool-item {
     display: flex;
     align-items: center;
     gap: var(--space-3);
     padding: var(--space-3);
-    background: var(--bg-base);
-    border-radius: var(--radius-md);
-  }
-
-  .tool-icon {
-    font-size: var(--text-lg);
+    background: #000000;
+    border: 1px solid var(--border-muted);
   }
 
   .tool-info {
     display: flex;
     flex-direction: column;
     min-width: 0;
+    font-family: var(--font-mono);
   }
 
   .tool-info strong {
-    font-size: var(--text-sm);
-    color: var(--text-primary);
+    font-size: 11px;
+    color: #ffffff;
+    letter-spacing: 0.05em;
   }
 
   .tool-path {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
+    font-size: 10px;
+    color: #666666;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .tool-version {
-    font-size: var(--text-xs);
-    color: var(--primary-base);
+    font-size: 10px;
+    color: #888888;
     margin-top: 2px;
+  }
+
+  .loading-tools {
+    font-size: 11px;
+    color: #666666;
+    font-family: var(--font-mono);
   }
 </style>

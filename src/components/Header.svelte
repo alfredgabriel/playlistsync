@@ -15,12 +15,12 @@
 <header class="app-header">
   <div class="header-left">
     {#if title}
-      <h1 class="header-title">{title}</h1>
+      <h1 class="header-title">// {title.toUpperCase()}</h1>
     {/if}
   </div>
   <div class="header-right">
     <div class="locale-picker">
-      <span class="locale-icon">🌐</span>
+      <span class="locale-tag">[LANG]</span>
       <select
         class="form-input form-select locale-select"
         value={$locale?.split('-')[0] ?? 'en'}
@@ -29,7 +29,7 @@
         id="language-selector"
       >
         {#each SUPPORTED_LOCALES as loc}
-          <option value={loc.code}>{loc.label}</option>
+          <option value={loc.code}>{loc.label.toUpperCase()}</option>
         {/each}
       </select>
     </div>
@@ -39,8 +39,8 @@
 <style>
   .app-header {
     height: var(--header-height);
-    background: var(--bg-surface);
-    border-bottom: 1px solid var(--border-subtle);
+    background: #000000;
+    border-bottom: 1px solid var(--border-muted);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -49,10 +49,11 @@
   }
 
   .header-title {
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
   }
 
   .header-right { display: flex; align-items: center; gap: var(--space-4); }
@@ -63,16 +64,26 @@
     gap: var(--space-2);
   }
 
-  .locale-icon { font-size: var(--text-base); }
+  .locale-tag {
+    font-size: 10px;
+    color: #666666;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
 
   .locale-select {
     width: auto;
-    min-width: 110px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    font-size: var(--text-sm);
-    padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+    min-width: 90px;
+    background: #000000;
+    border: 1px solid var(--border-muted);
+    color: #ffffff;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 4px 24px 4px 8px;
     cursor: pointer;
+    font-family: var(--font-sans);
+  }
+  .locale-select:focus {
+    border-color: #ffffff;
   }
 </style>
